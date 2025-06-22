@@ -151,6 +151,8 @@ def test_generation():
         if not data:
             return jsonify({'error': 'Dados não fornecidos'}), 400
         
+        print("Dados recebidos do frontend:", data)
+        
         # Gerar dieta usando IA
         result = generate_diet_for_user(data)
         

@@ -33,8 +33,8 @@ const translations = {
     next: "Próximo",
     submit: "Enviar Respostas",
     loading: "A enviar...",
-    quizSubmitted: "Questionário Enviado!",
-    successMessage: "Obrigado! A sua primeira dieta será gerada em breve.",
+   quizSubmitted: "Formulário enviado com sucesso!",
+    successMessage: "Obrigado! Sua dieta personalizada será gerada em breve.",
     fullName: "Nome Completo",
     fullNamePlaceholder: "O seu nome completo",
     age: "Idade",
@@ -82,8 +82,8 @@ const translations = {
     intolerancesPlaceholder: "Ex: lactose, glúten...",
     dislikedFoods: "Alimentos que não gosta ou não pode comer?",
     dislikedFoodsPlaceholder: "Liste todos os alimentos que devem ser evitados...",
-    currentBreakfast: "O que come normalmente ao pequeno-almoço?",
-    currentBreakfastPlaceholder: "Descreva o seu pequeno-almoço típico...",
+     currentBreakfast: "O que você costuma comer no café da manhã?",
+    currentBreakfastPlaceholder: "Descreva seu café da manhã típico...",
     currentLunch: "O que come normalmente ao almoço?",
     currentLunchPlaceholder: "Descreva o seu almoço típico...",
     currentDinner: "O que come normalmente ao jantar?",
@@ -266,7 +266,7 @@ function App() {
   const submitQuiz = async () => {
     setIsSubmitting(true);
     try {
-        const response = await fetch('http://localhost:5000/api/submit-quiz', {
+        const response = await fetch('http://localhost:5000/api/ai/test-generation', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
