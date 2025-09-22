@@ -301,3 +301,84 @@ O N8N fornece logs detalhados de execução, permitindo monitorar:
 - Dados processados
 - Erros e debugging
 
+## Contratos de Webhook e Integração com Agente (Evolution API)
+
+### 1) Ingestão de Dieta (Agente -> API)
+
+- Método: POST
+- URL: `http://localhost:5000/api/ai/ingest-diet/{user_id}`
+- Headers: `Content-Type: application/json`
+- Body (duas formas aceitas):
+
+Exemplo A (envelope):
+```json
+{
+  "diet_data": {
+    "data": "2025-09-22",
+    "usuario": "Fulano",
+    "objetivo": "perder_peso",
+    "calorias_alvo": 1800,
+    "refeicoes": {
+      "cafe_da_manha": { "nome": "Café da Manhã", "alimentos": [], "calorias_total": 400 },
+      "almoco": { "nome": "Almoço", "alimentos": [], "calorias_total": 800 },
+      "jantar": { "nome": "Jantar", "alimentos": [], "calorias_total": 600 }
+    },
+    "resumo_nutricional": {
+      "calorias_total": 1800,
+      "proteina_total": 120,
+      "carbs_total": 180,
+      "gordura_total": 60
+    }
+  },
+  "ai_prompt_used": "agente_n8n_v1"
+}
+```
+
+Exemplo B (direto, sem envelope):
+```json
+{
+  "data": "2025-09-22",
+  "refeicoes": {
+    "cafe_da_manha": { "nome": "Café da Manhã", "alimentos": [], "calorias_total": 400 }
+  },
+  "resumo_nutricional": { "calorias_total": 1800 }
+}
+```
+
+- Resposta 201:
+```json
+{
+  "message": "Dieta ingerida e salva com sucesso",
+  "diet_id": 123,
+  "formatted_diet": "string pronta para WhatsApp",
+  "diet_data": { "...": "..." }
+}
+```
+
+Uso sugerido no n8n com Evolution API:
+1. Receba evento/trigger do WhatsApp (mensagem do usuário)
+2. Busque/identifique `user_id` no seu CRM/DB
+3. Gere a dieta via agente (OpenAI/LLM, etc.)
+4. POST para `ingest-diet` com o JSON acima
+5. Envie `formatted_diet` de volta ao usuário via Evolution API
+
+### 2) Geração pela API (Opcional)
+
+- Método: POST
+- URL: `http://localhost:5000/api/ai/generate-diet/{user_id}`
+- Resposta 201 inclui `formatted_diet` e `diet_data`.
+
+### 3) Status e Utilidades
+
+- `GET http://localhost:5000/api/notifications/scheduled-users`
+- `GET http://localhost:5000/api/user/{user_id}`
+
+## Ordem de Chamadas Sugerida (Fluxo WhatsApp)
+
+1. Usuário envia mensagem no WhatsApp (Evolution API webhook)
+2. n8n identifica `user_id` e contexto
+3. n8n chama `POST /api/ai/ingest-diet/{user_id}` com a dieta do agente
+4. n8n recebe `formatted_diet`
+5. n8n envia mensagem ao usuário via Evolution API com o texto
+6. (Opcional) Agendar rotina diária via `POST /api/notifications/schedule-email/{user_id}` ou usar seu próprio scheduler no n8n
+

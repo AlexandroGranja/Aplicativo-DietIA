@@ -166,3 +166,88 @@ def test_generation():
     except Exception as e:
         return jsonify({'error': f'Erro ao gerar dieta de teste: {str(e)}'}), 500
 
+
+@ai_bp.route('/ingest-diet/<int:user_id>', methods=['POST'])
+@cross_origin()
+def ingest_diet(user_id):
+    """Endpoint para ingerir dieta gerada externamente (ex: n8n/Agente)
+    Espera um JSON com estrutura próxima de diet_data usada internamente.
+    """
+    try:
+        user = User.query.get_or_404(user_id)
+        body = request.get_json() or {}
+
+        # Aceita dois formatos: diet_data diretamente ou um envelope {diet_data: ..., formatted_diet: ...}
+        incoming_diet = body.get('diet_data') or body.get('diet') or body
+
+        if not isinstance(incoming_diet, dict):
+            return jsonify({'error': 'Formato de dieta inválido'}), 400
+
+        # Normalizar chaves esperadas
+        meals = incoming_diet.get('refeicoes') or incoming_diet.get('meals') or {}
+        summary = incoming_diet.get('resumo_nutricional') or incoming_diet.get('summary') or {}
+
+        today = date.today()
+
+        # Se já existir, apaga de hoje para sobrescrever
+        existing = Diet.query.filter_by(user_id=user.id, date=today).first()
+        if existing:
+            db.session.delete(existing)
+            db.session.commit()
+
+        new_diet = Diet(
+            user_id=user.id,
+            date=today,
+            breakfast=json.dumps(meals.get('cafe_da_manha') or meals.get('breakfast') or {}),
+            morning_snack=json.dumps(meals.get('lanche_manha') or meals.get('morning_snack') or {}),
+            lunch=json.dumps(meals.get('almoco') or meals.get('lunch') or {}),
+            afternoon_snack=json.dumps(meals.get('lanche_tarde') or meals.get('afternoon_snack') or {}),
+            dinner=json.dumps(meals.get('jantar') or meals.get('dinner') or {}),
+            evening_snack=json.dumps(meals.get('ceia') or meals.get('evening_snack') or {}),
+            total_calories=summary.get('calorias_total') or summary.get('calories_total'),
+            total_protein=summary.get('proteina_total') or summary.get('protein_total'),
+            total_carbs=summary.get('carbs_total') or summary.get('carbohydrates_total'),
+            total_fat=summary.get('gordura_total') or summary.get('fat_total'),
+            ai_prompt_used=body.get('ai_prompt_used') or 'external_ingest'
+        )
+
+        db.session.add(new_diet)
+        db.session.commit()
+
+        # Formatar saída para WhatsApp (texto simples) usando o formatador existente
+        from src.ai_diet_generator import DietGenerator
+        generator = DietGenerator()
+
+        # Reconstruir diet_data no formato padronizado
+        rebuilt = {
+            'data': today.isoformat(),
+            'usuario': user.name,
+            'objetivo': user.main_goal,
+            'calorias_alvo': user.daily_calories,
+            'refeicoes': {},
+            'resumo_nutricional': {
+                'calorias_total': new_diet.total_calories or 0,
+                'proteina_total': new_diet.total_protein or 0,
+                'carbs_total': new_diet.total_carbs or 0,
+                'gordura_total': new_diet.total_fat or 0
+            }
+        }
+        if new_diet.breakfast: rebuilt['refeicoes']['cafe_da_manha'] = json.loads(new_diet.breakfast)
+        if new_diet.morning_snack: rebuilt['refeicoes']['lanche_manha'] = json.loads(new_diet.morning_snack)
+        if new_diet.lunch: rebuilt['refeicoes']['almoco'] = json.loads(new_diet.lunch)
+        if new_diet.afternoon_snack: rebuilt['refeicoes']['lanche_tarde'] = json.loads(new_diet.afternoon_snack)
+        if new_diet.dinner: rebuilt['refeicoes']['jantar'] = json.loads(new_diet.dinner)
+        if new_diet.evening_snack: rebuilt['refeicoes']['ceia'] = json.loads(new_diet.evening_snack)
+
+        formatted_diet = generator.format_diet_for_user(rebuilt, user.language or 'pt')
+
+        return jsonify({
+            'message': 'Dieta ingerida e salva com sucesso',
+            'diet_id': new_diet.id,
+            'formatted_diet': formatted_diet,
+            'diet_data': rebuilt
+        }), 201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': f'Erro ao ingerir dieta: {str(e)}'}), 500
