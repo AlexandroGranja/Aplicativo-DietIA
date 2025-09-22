@@ -263,15 +263,81 @@ function App() {
     setQuizData(prev => ({ ...prev, [field]: { ...prev[field], [option]: !prev[field][option] } }));
   };
 
+  const computeDailyCalories = () => {
+    const heightCm = parseFloat(quizData.height || 0);
+    const weightKg = parseFloat(quizData.currentWeight || 0);
+    const ageYears = parseInt(quizData.age || 0);
+    const gender = quizData.gender || 'male';
+
+    if (!heightCm || !weightKg || !ageYears) return 2000;
+
+    // Mifflin-St Jeor
+    const bmr = gender === 'female'
+      ? 10 * weightKg + 6.25 * heightCm - 5 * ageYears - 161
+      : 10 * weightKg + 6.25 * heightCm - 5 * ageYears + 5;
+    let tdee = bmr * 1.2; // atividade leve como padrão
+
+    const goal = (quizData.mainGoal || '').toLowerCase();
+    if (goal.includes('perder')) tdee -= 300;
+    else if (goal.includes('ganhar')) tdee += 300;
+
+    return Math.max(1200, Math.round(tdee));
+  };
+
+  const buildPayload = () => {
+    // Mapear campos do formulário para os nomes esperados pelo backend
+    const selectedExercises = Object.entries(quizData.exerciseType || {})
+      .filter(([, checked]) => !!checked)
+      .map(([key]) => key);
+
+    // Normalizar objetivo para backend/IA
+    const goalMap = {
+      'Perder peso': 'perder_peso',
+      'Ganhar massa muscular': 'ganhar_massa',
+      'Manter o peso': 'manter_peso',
+      'Melhorar a saúde': 'manter_peso'
+    };
+
+    const normalizedGoal = goalMap[quizData.mainGoal] || quizData.mainGoal || 'manter_peso';
+
+    const payload = {
+      name: quizData.fullName,
+      age: quizData.age ? parseInt(quizData.age) : undefined,
+      gender: quizData.gender,
+      height: quizData.height ? parseFloat(quizData.height) : undefined,
+      currentWeight: quizData.currentWeight ? parseFloat(quizData.currentWeight) : undefined,
+      targetWeight: quizData.targetWeight ? parseFloat(quizData.targetWeight) : undefined,
+      mainGoal: normalizedGoal,
+      wakeUpTime: quizData.wakeUpTime,
+      sleepTime: quizData.sleepTime,
+      mealsPerDay: quizData.mealsPerDay,
+      exerciseRegularly: quizData.exerciseRegularly,
+      exerciseType: selectedExercises,
+      favoriteFoods: quizData.favoriteFoods,
+      allergies: quizData.allergies,
+      intolerances: quizData.intolerances,
+      dislikedFoods: quizData.dislikedFoods,
+      currentBreakfast: quizData.currentBreakfast,
+      currentLunch: quizData.currentLunch,
+      currentDinner: quizData.currentDinner,
+      waterIntake: quizData.waterIntake ? parseFloat(quizData.waterIntake) : undefined,
+      language,
+      dailyCalories: computeDailyCalories()
+    };
+
+    // Remover chaves undefined para evitar falhas de validação simples
+    return Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined && v !== null && v !== ''));
+  };
+
   const submitQuiz = async () => {
     setIsSubmitting(true);
     try {
-        const response = await fetch('http://localhost:5000/api/submit-quiz', {
+        const response = await fetch('http://localhost:5000/api/quiz', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(quizData),
+            body: JSON.stringify(buildPayload()),
         });
 
         if (!response.ok) {
