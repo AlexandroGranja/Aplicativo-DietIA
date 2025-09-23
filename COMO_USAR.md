@@ -10,7 +10,7 @@ O servidor de desenvolvimento está rodando em:
 ### 1. Configurar Supabase (Opcional)
 Se quiser usar autenticação e banco de dados:
 
-1. Crie um arquivo `.env.local` na pasta `ubuntu/diet-quiz-app/`
+1. Crie um arquivo `.env.local` na pasta `diet-quiz-app/`
 2. Adicione suas credenciais do Supabase:
 
 ```env
@@ -23,7 +23,7 @@ VITE_API_URL=http://localhost:5000
 Se quiser usar o backend Python:
 
 ```bash
-cd ubuntu/diet-api
+cd diet-api
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
