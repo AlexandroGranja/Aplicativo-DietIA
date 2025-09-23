@@ -1,13 +1,15 @@
 # 🔥 DietIA - Sistema de Dieta Personalizada com IA
 
-Um sistema completo de geração de dietas personalizadas usando inteligência artificial, com interface moderna e tema de fogo/nutrição.
+Um sistema completo de geração de dietas personalizadas usando inteligência artificial, com interface moderna e tema de nutrição.
 
 ## ✨ Características
 
-- 🎨 **Design Moderno**: Interface com tema de fogo/nutrição, profissional e atraente
+- 🎨 **Design Moderno**: Interface com tema azul/verde para nutrição, profissional e atraente
 - 🌍 **Multilíngue**: Suporte completo para Português e Inglês
 - 📱 **Responsivo**: Funciona perfeitamente em desktop, tablet e mobile
 - ⚡ **Formulários Inteligentes**: Perguntas claras e objetivas, sem textos gigantes
+- 🔐 **Autenticação**: Sistema completo de login/cadastro com Supabase
+- 🗄️ **Banco de Dados**: Integração com Supabase para salvar dados dos usuários
 - 🤖 **Integração IA**: Conecta com APIs de IA para geração de dietas
 - 🔗 **n8n Ready**: Preparado para integração com n8n para automação
 - 🎯 **UX Otimizada**: Experiência do usuário fluida e intuitiva
@@ -40,40 +42,49 @@ Um sistema completo de geração de dietas personalizadas usando inteligência a
 
 ### Frontend
 ```bash
-cd ubuntu/diet-quiz-app
+cd diet-quiz-app
 npm install
 npm run dev
 ```
 
 ### Backend
 ```bash
-cd ubuntu/diet-api
+cd diet-api
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# ou
-venv\Scripts\activate     # Windows
+# Windows
+venv\Scripts\activate
+# Linux/Mac
+source venv/bin/activate
 pip install -r requirements.txt
 python src/main.py
+```
+
+### Configuração Supabase (Opcional)
+```bash
+# Criar arquivo .env.local em diet-quiz-app/
+VITE_SUPABASE_URL=https://seu-projeto.supabase.co
+VITE_SUPABASE_ANON_KEY=sua-chave-anonima-aqui
 ```
 
 ## 🎨 Design System
 
 ### Cores Principais
-- **Laranja**: `#f97316` (Orange-500)
-- **Vermelho**: `#dc2626` (Red-600)
-- **Gradientes**: Combinações de laranja para vermelho
+- **Azul**: `#3b82f6` (Blue-500)
+- **Teal**: `#06b6d4` (Teal-500)
+- **Verde**: `#10b981` (Green-500)
+- **Gradientes**: Combinações de azul para teal/verde
 
 ### Componentes
-- **Botões**: Gradientes com hover effects
-- **Inputs**: Bordas arredondadas com foco laranja
+- **Botões**: Gradientes azul/teal com hover effects
+- **Inputs**: Bordas arredondadas com foco azul
 - **Cards**: Sombras suaves com bordas arredondadas
 - **Animações**: Transições suaves e efeitos de hover
 
-### Tema de Fogo
-- Ícones de fogo (🔥) e elementos relacionados
-- Gradientes que simulam chamas
+### Tema de Nutrição
+- Ícones de fogo (🔥) e elementos de nutrição
+- Gradientes que simulam água e natureza
 - Animações de brilho e pulsação
-- Cores quentes (laranja, vermelho, amarelo)
+- Cores frias (azul, teal, verde) para nutrição
 
 ## 🌍 Internacionalização
 
@@ -103,6 +114,20 @@ python src/main.py
 - Campos obrigatórios marcados
 - Validação em tempo real
 - Mensagens de erro claras
+
+## 🔐 Autenticação e Banco de Dados
+
+### Supabase Integration
+- **Login/Cadastro**: Sistema completo de autenticação
+- **Banco de Dados**: PostgreSQL com Row Level Security
+- **Salvamento**: Dados do quiz salvos automaticamente
+- **Perfis**: Gerenciamento de perfis de usuário
+
+### Configuração
+1. Criar projeto no [Supabase](https://supabase.com)
+2. Configurar variáveis de ambiente
+3. Executar scripts SQL fornecidos
+4. Ver guia completo em `INSTRUCOES_SUPABASE.md`
 
 ## 🔗 Integração n8n
 

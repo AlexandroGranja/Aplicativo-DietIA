@@ -30,7 +30,7 @@ anon public key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### 4. Configurar Variáveis de Ambiente
 
-Crie o arquivo `.env.local` na pasta `ubuntu/diet-quiz-app/`:
+Crie o arquivo `.env.local` na pasta `diet-quiz-app/`:
 
 ```env
 VITE_SUPABASE_URL=https://seu-projeto.supabase.co
@@ -197,7 +197,7 @@ WHERE schemaname = 'public';
 
 1. **Iniciar o frontend**:
 ```bash
-cd ubuntu/diet-quiz-app
+cd diet-quiz-app
 npm run dev
 ```
 

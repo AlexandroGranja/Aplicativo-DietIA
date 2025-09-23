@@ -1,5 +1,11 @@
 # Configuração do n8n para DietIA
 
+## Visão Geral
+
+O DietIA pode ser integrado com n8n de duas formas:
+1. **Webhook direto** - Recebe dados do formulário
+2. **Supabase** - Integração com banco de dados (recomendado)
+
 ## Webhook de Entrada
 
 ### URL do Webhook
