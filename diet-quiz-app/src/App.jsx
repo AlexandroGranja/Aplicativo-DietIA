@@ -186,8 +186,8 @@ const Sidebar = ({ t, currentStep }) => {
   ];
 
   return (
-    <aside className="w-full lg:w-80 bg-gradient-to-br from-blue-50 to-teal-50 dark:from-blue-950/20 dark:to-teal-950/20 text-card-foreground p-6 rounded-2xl border border-blue-200/50 dark:border-blue-800/50 shadow-lg glass-effect dark:glass-effect-dark">
-      <div className="flex items-center gap-3 mb-6">
+    <aside className="w-full lg:w-80 bg-gradient-to-br from-blue-50 to-teal-50 dark:from-blue-950/20 dark:to-teal-950/20 text-card-foreground p-4 rounded-2xl border border-blue-200/50 dark:border-blue-800/50 shadow-lg glass-effect dark:glass-effect-dark">
+      <div className="flex items-center gap-3 mb-4">
         <div className="p-2 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl">
           <Flame className="h-6 w-6 text-white" />
         </div>
@@ -195,23 +195,23 @@ const Sidebar = ({ t, currentStep }) => {
           DietIA
         </h2>
       </div>
-      <ul className="space-y-2">
+      <ul className="space-y-1">
         {menuItems.map((item) => (
           <li key={item.step}>
             <div className={cn(
-              "flex items-center gap-3 p-4 rounded-xl transition-all duration-200 text-sm font-medium cursor-pointer",
+              "flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-sm font-medium cursor-pointer",
               currentStep === item.step
                 ? "bg-gradient-to-r from-blue-500 to-teal-500 text-white shadow-lg transform scale-105"
                 : "hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:shadow-md"
             )}>
               <item.icon className={cn(
-                "h-5 w-5",
+                "h-4 w-4",
                 currentStep === item.step ? "text-white" : "text-blue-600"
               )} />
               <span className="font-semibold">{item.label}</span>
               {currentStep === item.step && (
                 <div className="ml-auto">
-                  <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                  <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
                 </div>
               )}
             </div>
@@ -223,14 +223,14 @@ const Sidebar = ({ t, currentStep }) => {
 };
 
 // --- Componentes da UI ---
-const buttonVariants=cva("inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-semibold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",{variants:{variant:{default:"bg-gradient-to-r from-blue-500 to-teal-500 text-white hover:from-blue-600 hover:to-teal-600 shadow-lg hover:shadow-xl transform hover:scale-105",outline:"border-2 border-blue-300 bg-transparent text-blue-600 hover:bg-blue-50 dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-950/20"},size:{default:"h-12 px-6 py-3",icon:"h-12 w-12"}},defaultVariants:{variant:"default",size:"default"}});const Button=React.forwardRef(({className,variant,size,asChild=false,...props},ref)=>{const Comp=asChild?Slot:"button";return<Comp className={cn(buttonVariants({variant,size,className}))}ref={ref}{...props}/>});Button.displayName="Button";
-const Input=React.forwardRef(({className,type,...props},ref)=>{return<input type={type}className={cn("flex h-12 w-full rounded-xl border-2 border-blue-200 dark:border-blue-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm font-medium ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}ref={ref}{...props}/>});Input.displayName="Input";
+const buttonVariants=cva("inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-semibold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",{variants:{variant:{default:"bg-gradient-to-r from-blue-500 to-teal-500 text-white hover:from-blue-600 hover:to-teal-600 shadow-lg hover:shadow-xl transform hover:scale-105",outline:"border-2 border-blue-300 bg-transparent text-blue-600 hover:bg-blue-50 dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-950/20"},size:{default:"h-10 px-4 py-2",icon:"h-10 w-10"}},defaultVariants:{variant:"default",size:"default"}});const Button=React.forwardRef(({className,variant,size,asChild=false,...props},ref)=>{const Comp=asChild?Slot:"button";return<Comp className={cn(buttonVariants({variant,size,className}))}ref={ref}{...props}/>});Button.displayName="Button";
+const Input=React.forwardRef(({className,type,...props},ref)=>{return<input type={type}className={cn("flex h-10 w-full rounded-xl border-2 border-blue-200 dark:border-blue-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}ref={ref}{...props}/>});Input.displayName="Input";
 const Label=React.forwardRef(({className,...props},ref)=>(<LabelPrimitive.Root ref={ref}className={cn("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",className)}{...props}/>));Label.displayName=LabelPrimitive.Root.displayName;
 const Select=SelectPrimitive.Root;const SelectValue=SelectPrimitive.Value;const SelectTrigger=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Trigger ref={ref}className={cn("flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",className)}{...props}>{children}<SelectPrimitive.Icon asChild><ChevronDownIcon className="h-4 w-4 opacity-50"/></SelectPrimitive.Icon></SelectPrimitive.Trigger>));SelectTrigger.displayName=SelectPrimitive.Trigger.displayName;const SelectContent=React.forwardRef(({className,children,position="popper",...props},ref)=>(<SelectPrimitive.Portal><SelectPrimitive.Content ref={ref}className={cn("relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",position==="popper"&&"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",className)}position={position}{...props}><SelectPrimitive.Viewport className={cn("p-1",position==="popper"&&"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport></SelectPrimitive.Content></SelectPrimitive.Portal>));SelectContent.displayName=SelectPrimitive.Content.displayName;const SelectItem=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Item ref={ref}className={cn("relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",className)}{...props}><span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"><SelectPrimitive.ItemIndicator><CheckIcon className="h-4 w-4"/></SelectPrimitive.ItemIndicator></span><SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText></SelectPrimitive.Item>));SelectItem.displayName=SelectPrimitive.Item.displayName;
 const RadioGroup=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Root className={cn("grid gap-2",className)}{...props}ref={ref}/>)});RadioGroup.displayName=RadioGroupPrimitive.Root.displayName;const RadioGroupItem=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Item ref={ref}className={cn("aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",className)}{...props}><RadioGroupPrimitive.Indicator className="flex items-center justify-center"><CircleIcon className="h-2.5 w-2.5 fill-current text-current"/></RadioGroupPrimitive.Indicator></RadioGroupPrimitive.Item>)});RadioGroupItem.displayName=RadioGroupPrimitive.Item.displayName;
 const Progress=React.forwardRef(({className,value,...props},ref)=>(<ProgressPrimitive.Root ref={ref}className={cn("relative h-3 w-full overflow-hidden rounded-full bg-blue-100 dark:bg-blue-900/30",className)}{...props}><ProgressPrimitive.Indicator className="h-full w-full flex-1 bg-gradient-to-r from-blue-500 to-teal-500 transition-all duration-500 ease-out"style={{transform:`translateX(-${100-(value||0)}%)`}}/></ProgressPrimitive.Root>));Progress.displayName=ProgressPrimitive.Root.displayName;const Separator=React.forwardRef(({className,orientation='horizontal',decorative=true,...props},ref)=>(<SeparatorPrimitive.Root ref={ref}decorative={decorative}orientation={orientation}className={cn('shrink-0 bg-border',orientation==='horizontal'?'h-[1px] w-full':'h-full w-[1px]',className)}{...props}/>));Separator.displayName=SeparatorPrimitive.Root.displayName;
 const Checkbox=React.forwardRef(({className,...props},ref)=>(<CheckboxPrimitive.Root ref={ref}className={cn("peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",className)}{...props}><CheckboxPrimitive.Indicator className={cn("flex items-center justify-center text-current")}><CheckIcon className="h-4 w-4"/></CheckboxPrimitive.Indicator></CheckboxPrimitive.Root>));Checkbox.displayName=CheckboxPrimitive.Root.displayName;
-const Textarea = React.forwardRef(({ className, ...props }, ref) => { return (<textarea className={cn("flex min-h-[100px] w-full rounded-xl border-2 border-blue-200 dark:border-blue-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm font-medium ring-offset-background placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 resize-none", className)} ref={ref} {...props} />); }); Textarea.displayName = "Textarea";
+const Textarea = React.forwardRef(({ className, ...props }, ref) => { return (<textarea className={cn("flex min-h-[80px] w-full rounded-xl border-2 border-blue-200 dark:border-blue-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium ring-offset-background placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 resize-none", className)} ref={ref} {...props} />); }); Textarea.displayName = "Textarea";
 
 // --- Fim dos Componentes Embutidos ---
 
@@ -261,13 +261,22 @@ function App() {
   useEffect(() => {
     const checkUser = async () => {
       try {
+        console.log('Verificando usuário...');
         const currentUser = await auth.getCurrentUser();
-        setUser(currentUser);
-        if (!currentUser) {
+        console.log('Usuário atual:', currentUser);
+        
+        if (currentUser) {
+          setUser(currentUser);
+          setShowAuth(false);
+          console.log('Usuário logado com sucesso');
+        } else {
+          setUser(null);
           setShowAuth(true);
+          console.log('Nenhum usuário logado');
         }
       } catch (error) {
         console.error('Erro ao verificar usuário:', error);
+        setUser(null);
         setShowAuth(true);
       } finally {
         setLoading(false);
@@ -279,11 +288,13 @@ function App() {
 
   // Funções de autenticação
   const handleLogin = (userData) => {
+    console.log('Login realizado:', userData);
     setUser(userData);
     setShowAuth(false);
   };
 
   const handleRegister = (userData) => {
+    console.log('Cadastro realizado:', userData);
     setUser(userData);
     setShowAuth(false);
   };
@@ -397,19 +408,25 @@ function App() {
     setIsSubmitting(true);
     try {
         const payload = buildPayload();
+        console.log("📝 Payload do quiz:", payload);
+        console.log("👤 ID do usuário:", user?.id);
         
         // Salvar no Supabase
-        const { data: supabaseData, error: supabaseError } = await auth.saveQuizData({
+        const quizData = {
             ...payload,
             user_id: user.id
-        });
+        };
+        console.log("💾 Dados para salvar no Supabase:", quizData);
+        
+        const { data: supabaseData, error: supabaseError } = await auth.saveQuizData(quizData);
 
         if (supabaseError) {
-            console.error("Erro ao salvar no Supabase:", supabaseError);
-            throw new Error("Erro ao salvar dados");
+            console.error("❌ Erro ao salvar no Supabase:", supabaseError);
+            console.error("❌ Detalhes do erro:", JSON.stringify(supabaseError, null, 2));
+            throw new Error(`Erro ao salvar dados: ${supabaseError.message || 'Erro desconhecido'}`);
         }
 
-        console.log("Dados salvos no Supabase:", supabaseData);
+        console.log("✅ Dados salvos no Supabase:", supabaseData);
 
         // Enviar para o backend local (opcional)
         try {
@@ -511,16 +528,16 @@ function App() {
 
     switch(currentStep) {
       case 1: return( 
-        <div className="space-y-6">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        <div className="space-y-4">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Vamos começar!' : "Let's get started!"}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               {language === 'pt' ? 'Precisamos de algumas informações básicas' : 'We need some basic information'}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="fullName" className="text-base font-semibold text-gray-700 dark:text-gray-300">{t.fullName}</Label>
               <Input id="fullName" placeholder={t.fullNamePlaceholder} value={quizData.fullName} onChange={handleInputChange}/>
@@ -532,7 +549,7 @@ function App() {
             <div className="space-y-2">
               <Label htmlFor="gender" className="text-base font-semibold text-gray-700 dark:text-gray-300">{t.gender}</Label>
               <Select onValueChange={(v)=>handleValueChange('gender',v)} value={quizData.gender}>
-                <SelectTrigger className="h-12">
+                <SelectTrigger className="h-10">
                   <SelectValue placeholder={t.genderSelect}/>
                 </SelectTrigger>
                 <SelectContent>
@@ -558,12 +575,12 @@ function App() {
         </div>
       );
       case 2: return( 
-        <div className="space-y-6">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        <div className="space-y-4">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Qual é seu objetivo?' : 'What is your goal?'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               {language === 'pt' ? 'Escolha o que mais se alinha com você' : 'Choose what aligns most with you'}
             </p>
           </div>
@@ -576,10 +593,10 @@ function App() {
             ].map(goal => (
               <div key={goal.value}>
                 <RadioGroupItem value={goal.value} id={goal.value} className="peer sr-only"/>
-                <Label htmlFor={goal.value} className="flex flex-col items-center justify-center rounded-2xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-6 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 peer-data-[state=checked]:border-orange-500 peer-data-[state=checked]:from-orange-500 peer-data-[state=checked]:to-red-500 peer-data-[state=checked]:text-white cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105 [&:has([data-state=checked])]:border-orange-500 [&:has([data-state=checked])]:from-orange-500 [&:has([data-state=checked])]:to-red-500 [&:has([data-state=checked])]:text-white">
-                  <div className="text-4xl mb-3">{goal.icon}</div>
-                  <div className="text-lg font-bold text-center">{goal.value}</div>
-                  <div className="text-sm text-center opacity-75 mt-1">{goal.desc}</div>
+                <Label htmlFor={goal.value} className="flex flex-col items-center justify-center rounded-2xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-4 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 peer-data-[state=checked]:border-orange-500 peer-data-[state=checked]:from-orange-500 peer-data-[state=checked]:to-red-500 peer-data-[state=checked]:text-white cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105 [&:has([data-state=checked])]:border-orange-500 [&:has([data-state=checked])]:from-orange-500 [&:has([data-state=checked])]:to-red-500 [&:has([data-state=checked])]:text-white">
+                  <div className="text-3xl mb-2">{goal.icon}</div>
+                  <div className="text-base font-bold text-center">{goal.value}</div>
+                  <div className="text-xs text-center opacity-75 mt-1">{goal.desc}</div>
                 </Label>
               </div>
             ))}
@@ -587,16 +604,16 @@ function App() {
         </div>
       );
       case 3: return( 
-        <div className="space-y-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        <div className="space-y-6">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Sua rotina diária' : 'Your daily routine'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               {language === 'pt' ? 'Nos conte sobre seus horários' : 'Tell us about your schedule'}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="wakeUpTime" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 🌅 {t.wakeUpTime}
@@ -614,7 +631,7 @@ function App() {
             <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
               🍽️ {t.mealsPerDay}
             </Label>
-            <RadioGroup className="grid grid-cols-2 md:grid-cols-4 gap-3" value={quizData.mealsPerDay} onValueChange={(v)=>handleValueChange('mealsPerDay',v)}>
+            <RadioGroup className="grid grid-cols-2 md:grid-cols-4 gap-2" value={quizData.mealsPerDay} onValueChange={(v)=>handleValueChange('mealsPerDay',v)}>
               {[
                 { value: "3", label: t['3meals'], icon: "🥘" },
                 { value: "4", label: t['4meals'], icon: "🍽️" },
@@ -623,9 +640,9 @@ function App() {
               ].map(meal => (
                 <div key={meal.value}>
                   <RadioGroupItem value={meal.value} id={meal.value} className="peer sr-only"/>
-                  <Label htmlFor={meal.value} className="flex flex-col items-center justify-center rounded-xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-4 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 peer-data-[state=checked]:border-orange-500 peer-data-[state=checked]:from-orange-500 peer-data-[state=checked]:to-red-500 peer-data-[state=checked]:text-white cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 [&:has([data-state=checked])]:border-orange-500 [&:has([data-state=checked])]:from-orange-500 [&:has([data-state=checked])]:to-red-500 [&:has([data-state=checked])]:text-white">
-                    <div className="text-2xl mb-2">{meal.icon}</div>
-                    <div className="text-sm font-bold">{meal.label}</div>
+                  <Label htmlFor={meal.value} className="flex flex-col items-center justify-center rounded-xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-3 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 peer-data-[state=checked]:border-orange-500 peer-data-[state=checked]:from-orange-500 peer-data-[state=checked]:to-red-500 peer-data-[state=checked]:text-white cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 [&:has([data-state=checked])]:border-orange-500 [&:has([data-state=checked])]:from-orange-500 [&:has([data-state=checked])]:to-red-500 [&:has([data-state=checked])]:text-white">
+                    <div className="text-xl mb-1">{meal.icon}</div>
+                    <div className="text-xs font-bold">{meal.label}</div>
                   </Label>
                 </div>
               ))}
@@ -634,21 +651,21 @@ function App() {
         </div>
       );
       case 4: return( 
-        <div className="space-y-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        <div className="space-y-6">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Atividade física' : 'Physical activity'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               {language === 'pt' ? 'Como você se mantém ativo?' : 'How do you stay active?'}
             </p>
           </div>
-          <div className="space-y-6">
-            <div className="space-y-4">
+          <div className="space-y-4">
+            <div className="space-y-3">
               <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 ⚡ {t.exerciseRegularly}
               </Label>
-              <RadioGroup className="grid grid-cols-1 md:grid-cols-3 gap-4" value={quizData.exerciseRegularly} onValueChange={(v)=>handleValueChange('exerciseRegularly',v)}>
+              <RadioGroup className="grid grid-cols-1 md:grid-cols-3 gap-3" value={quizData.exerciseRegularly} onValueChange={(v)=>handleValueChange('exerciseRegularly',v)}>
                 {[
                   { value: "yes", label: t.yes, icon: "💪", desc: language === 'pt' ? 'Regularmente' : 'Regularly' },
                   { value: "no", label: t.no, icon: "😴", desc: language === 'pt' ? 'Raramente' : 'Rarely' },
@@ -656,10 +673,10 @@ function App() {
                 ].map(exercise => (
                   <div key={exercise.value}>
                     <RadioGroupItem value={exercise.value} id={exercise.value} className="peer sr-only"/>
-                    <Label htmlFor={exercise.value} className="flex flex-col items-center justify-center rounded-xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-6 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 peer-data-[state=checked]:border-orange-500 peer-data-[state=checked]:from-orange-500 peer-data-[state=checked]:to-red-500 peer-data-[state=checked]:text-white cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105 [&:has([data-state=checked])]:border-orange-500 [&:has([data-state=checked])]:from-orange-500 [&:has([data-state=checked])]:to-red-500 [&:has([data-state=checked])]:text-white">
-                      <div className="text-3xl mb-2">{exercise.icon}</div>
-                      <div className="text-lg font-bold text-center">{exercise.label}</div>
-                      <div className="text-sm text-center opacity-75 mt-1">{exercise.desc}</div>
+                    <Label htmlFor={exercise.value} className="flex flex-col items-center justify-center rounded-xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-4 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 peer-data-[state=checked]:border-orange-500 peer-data-[state=checked]:from-orange-500 peer-data-[state=checked]:to-red-500 peer-data-[state=checked]:text-white cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105 [&:has([data-state=checked])]:border-orange-500 [&:has([data-state=checked])]:from-orange-500 [&:has([data-state=checked])]:to-red-500 [&:has([data-state=checked])]:text-white">
+                      <div className="text-2xl mb-1">{exercise.icon}</div>
+                      <div className="text-base font-bold text-center">{exercise.label}</div>
+                      <div className="text-xs text-center opacity-75 mt-1">{exercise.desc}</div>
                     </Label>
                   </div>
                 ))}
@@ -669,14 +686,14 @@ function App() {
               <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 🏃‍♂️ {t.exerciseType}
               </Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {Object.keys(quizData.exerciseType).map(key => (
-                  <div key={key} className="flex items-center space-x-3 p-4 rounded-xl border-2 border-orange-200 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 transition-all duration-200">
+                  <div key={key} className="flex items-center space-x-3 p-3 rounded-xl border-2 border-orange-200 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 transition-all duration-200">
                     <Checkbox 
                       id={key} 
                       checked={quizData.exerciseType[key]} 
                       onCheckedChange={()=>handleCheckboxChange('exerciseType',key)}
-                      className="h-5 w-5"
+                      className="h-4 w-4"
                     />
                     <Label htmlFor={key} className="font-semibold text-gray-700 dark:text-gray-300 cursor-pointer flex-1">
                       {t[key]}
@@ -689,22 +706,22 @@ function App() {
         </div>
       );
       case 5: return( 
-        <div className="space-y-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        <div className="space-y-6">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Preferências alimentares' : 'Food preferences'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               {language === 'pt' ? 'Conte-nos sobre seus gostos' : 'Tell us about your tastes'}
             </p>
           </div>
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-3">
                 <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                   🥬 {t.vegetarian}
                 </Label>
-                <RadioGroup className="flex gap-4" value={quizData.vegetarian} onValueChange={(v)=>handleValueChange('vegetarian',v)}>
+                <RadioGroup className="flex gap-3" value={quizData.vegetarian} onValueChange={(v)=>handleValueChange('vegetarian',v)}>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="yes" id="veg-yes"/>
                     <Label htmlFor="veg-yes" className="font-semibold">{t.yes}</Label>
@@ -719,7 +736,7 @@ function App() {
                 <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                   🌱 {t.vegan}
                 </Label>
-                <RadioGroup className="flex gap-4" value={quizData.vegan} onValueChange={(v)=>handleValueChange('vegan',v)}>
+                <RadioGroup className="flex gap-3" value={quizData.vegan} onValueChange={(v)=>handleValueChange('vegan',v)}>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="yes" id="vegan-yes"/>
                     <Label htmlFor="vegan-yes" className="font-semibold">{t.yes}</Label>
@@ -731,17 +748,17 @@ function App() {
                 </RadioGroup>
               </div>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Label htmlFor="favoriteFoods" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 ❤️ {t.favoriteFoods}
               </Label>
               <Textarea id="favoriteFoods" placeholder={t.favoriteFoodsPlaceholder} value={quizData.favoriteFoods} onChange={handleInputChange}/>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 👨‍🍳 {t.cookingSkill}
               </Label>
-              <RadioGroup className="grid grid-cols-1 md:grid-cols-3 gap-4" value={quizData.cookingSkill} onValueChange={(v)=>handleValueChange('cookingSkill',v)}>
+              <RadioGroup className="grid grid-cols-1 md:grid-cols-3 gap-3" value={quizData.cookingSkill} onValueChange={(v)=>handleValueChange('cookingSkill',v)}>
                 {[
                   { value: "beginner", label: t.beginner, icon: "🌱", desc: language === 'pt' ? 'Básico' : 'Basic' },
                   { value: "intermediate", label: t.intermediate, icon: "👨‍🍳", desc: language === 'pt' ? 'Intermediário' : 'Intermediate' },
@@ -749,10 +766,10 @@ function App() {
                 ].map(skill => (
                   <div key={skill.value}>
                     <RadioGroupItem value={skill.value} id={skill.value} className="peer sr-only"/>
-                    <Label htmlFor={skill.value} className="flex flex-col items-center justify-center rounded-xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-6 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 peer-data-[state=checked]:border-orange-500 peer-data-[state=checked]:from-orange-500 peer-data-[state=checked]:to-red-500 peer-data-[state=checked]:text-white cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105 [&:has([data-state=checked])]:border-orange-500 [&:has([data-state=checked])]:from-orange-500 [&:has([data-state=checked])]:to-red-500 [&:has([data-state=checked])]:text-white">
-                      <div className="text-3xl mb-2">{skill.icon}</div>
-                      <div className="text-lg font-bold text-center">{skill.label}</div>
-                      <div className="text-sm text-center opacity-75 mt-1">{skill.desc}</div>
+                    <Label htmlFor={skill.value} className="flex flex-col items-center justify-center rounded-xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-4 hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-900/30 dark:hover:to-red-900/30 peer-data-[state=checked]:border-orange-500 peer-data-[state=checked]:from-orange-500 peer-data-[state=checked]:to-red-500 peer-data-[state=checked]:text-white cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105 [&:has([data-state=checked])]:border-orange-500 [&:has([data-state=checked])]:from-orange-500 [&:has([data-state=checked])]:to-red-500 [&:has([data-state=checked])]:text-white">
+                      <div className="text-2xl mb-1">{skill.icon}</div>
+                      <div className="text-base font-bold text-center">{skill.label}</div>
+                      <div className="text-xs text-center opacity-75 mt-1">{skill.desc}</div>
                     </Label>
                   </div>
                 ))}
@@ -762,29 +779,29 @@ function App() {
         </div>
       );
       case 6: return( 
-        <div className="space-y-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        <div className="space-y-6">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Restrições alimentares' : 'Food restrictions'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               {language === 'pt' ? 'Informe sobre alergias e intolerâncias' : 'Tell us about allergies and intolerances'}
             </p>
           </div>
-          <div className="space-y-6">
-            <div className="space-y-4">
+          <div className="space-y-4">
+            <div className="space-y-3">
               <Label htmlFor="allergies" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 ⚠️ {t.allergies}
               </Label>
               <Textarea id="allergies" placeholder={t.allergiesPlaceholder} value={quizData.allergies} onChange={handleInputChange}/>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Label htmlFor="intolerances" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 🚫 {t.intolerances}
               </Label>
               <Textarea id="intolerances" placeholder={t.intolerancesPlaceholder} value={quizData.intolerances} onChange={handleInputChange}/>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Label htmlFor="dislikedFoods" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 👎 {t.dislikedFoods}
               </Label>
@@ -794,35 +811,35 @@ function App() {
         </div>
       );
       case 7: return( 
-        <div className="space-y-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        <div className="space-y-6">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Sua alimentação atual' : 'Your current diet'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               {language === 'pt' ? 'Descreva seus hábitos alimentares' : 'Describe your eating habits'}
             </p>
           </div>
-          <div className="space-y-6">
-            <div className="space-y-4">
+          <div className="space-y-4">
+            <div className="space-y-3">
               <Label htmlFor="currentBreakfast" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 🌅 {t.currentBreakfast}
               </Label>
               <Textarea id="currentBreakfast" placeholder={t.currentBreakfastPlaceholder} value={quizData.currentBreakfast} onChange={handleInputChange}/>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Label htmlFor="currentLunch" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 ☀️ {t.currentLunch}
               </Label>
               <Textarea id="currentLunch" placeholder={t.currentLunchPlaceholder} value={quizData.currentLunch} onChange={handleInputChange}/>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Label htmlFor="currentDinner" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 🌙 {t.currentDinner}
               </Label>
               <Textarea id="currentDinner" placeholder={t.currentDinnerPlaceholder} value={quizData.currentDinner} onChange={handleInputChange}/>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Label htmlFor="waterIntake" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 💧 {t.waterIntake}
               </Label>
@@ -832,23 +849,23 @@ function App() {
         </div>
       );
       case 8: return( 
-        <div className="text-center space-y-8">
-          <div className="space-y-4">
-            <div className="mx-auto w-24 h-24 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl">
-              <Star className="h-12 w-12 text-white" />
+        <div className="text-center space-y-6">
+          <div className="space-y-3">
+            <div className="mx-auto w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl">
+              <Star className="h-10 w-10 text-white" />
             </div>
-            <h3 className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
               {t.finalTitle}
             </h3>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
               {t.finalMessage}
             </p>
           </div>
-          <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 rounded-2xl p-8 border border-orange-200 dark:border-orange-800">
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+          <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 rounded-2xl p-6 border border-orange-200 dark:border-orange-800">
+            <h4 className="text-base font-semibold text-gray-800 dark:text-white mb-3">
               {language === 'pt' ? 'Resumo das suas informações:' : 'Summary of your information:'}
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-400">
               <div><strong>{t.fullName}:</strong> {quizData.fullName || '-'}</div>
               <div><strong>{t.age}:</strong> {quizData.age || '-'}</div>
               <div><strong>{t.mainGoal}:</strong> {quizData.mainGoal || '-'}</div>
@@ -881,20 +898,20 @@ function App() {
   if (showAuth) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-teal-50 to-cyan-50 dark:from-gray-900 dark:via-blue-950/20 dark:to-teal-950/20 p-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="mx-auto w-20 h-20 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-2xl mb-6">
-              <Flame className="h-10 w-10 text-white" />
+        <div className="w-full max-w-sm">
+          <div className="text-center mb-4">
+            <div className="mx-auto w-12 h-12 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-2xl mb-3">
+              <Flame className="h-6 w-6 text-white" />
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent mb-1">
               DietIA
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 text-xs">
               {language === 'pt' ? 'Sua dieta personalizada com IA' : 'Your personalized AI diet'}
             </p>
           </div>
           
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-blue-200/50 dark:border-blue-800/50 shadow-xl p-8">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-blue-200/50 dark:border-blue-800/50 shadow-xl p-4">
             {authMode === 'login' ? (
               <LoginForm 
                 onLogin={handleLogin}
@@ -910,19 +927,19 @@ function App() {
             )}
           </div>
           
-          <div className="text-center mt-6">
-            <div className="flex items-center justify-center gap-3">
+          <div className="text-center mt-4">
+            <div className="flex items-center justify-center gap-2">
               <Select onValueChange={setLanguage} value={language}>
-                <SelectTrigger className="w-auto h-10 px-3 bg-white dark:bg-gray-800 border-2 border-blue-200 dark:border-blue-700 rounded-xl">
-                  <SelectValue>{language==='pt'?'🇧🇷 Português':'🇺🇸 English'}</SelectValue>
+                <SelectTrigger className="w-auto h-8 px-2 bg-white dark:bg-gray-800 border-2 border-blue-200 dark:border-blue-700 rounded-lg text-xs">
+                  <SelectValue>{language==='pt'?'🇧🇷 PT':'🇺🇸 EN'}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="pt">🇧🇷 Português</SelectItem>
                   <SelectItem value="en">🇺🇸 English</SelectItem>
                 </SelectContent>
               </Select>
-              <Button variant="outline" size="icon" onClick={()=>setDarkMode(!darkMode)} className="h-10 w-10">
-                {darkMode?<Sun className="h-4 w-4"/>:<Moon className="h-4 w-4"/>}
+              <Button variant="outline" size="icon" onClick={()=>setDarkMode(!darkMode)} className="h-8 w-8">
+                {darkMode?<Sun className="h-3 w-3"/>:<Moon className="h-3 w-3"/>}
               </Button>
             </div>
           </div>
@@ -933,14 +950,14 @@ function App() {
 
   return (
     <div className={cn("min-h-screen font-sans antialiased bg-gradient-to-br from-blue-50 via-teal-50 to-cyan-50 dark:from-gray-900 dark:via-blue-950/20 dark:to-teal-950/20 textured-background dark:textured-background-dark", darkMode ? "dark" : "")}>
-      <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-        <header className="flex justify-between items-center mb-8">
+      <div className="container mx-auto p-4 sm:p-6 lg:p-6 max-w-7xl">
+        <header className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl shadow-lg">
-              <Flame className="h-8 w-8 text-white" />
+            <div className="p-2 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl shadow-lg">
+              <Flame className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
                 DietIA
               </h1>
               <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
@@ -956,7 +973,7 @@ function App() {
               </div>
             )}
             <Select onValueChange={setLanguage} value={language}>
-              <SelectTrigger className="w-auto h-12 px-4 bg-white dark:bg-gray-800 border-2 border-blue-200 dark:border-blue-700 rounded-xl">
+              <SelectTrigger className="w-auto h-10 px-3 bg-white dark:bg-gray-800 border-2 border-blue-200 dark:border-blue-700 rounded-xl">
                 <SelectValue>{language==='pt'?'🇧🇷 Português':'🇺🇸 English'}</SelectValue>
               </SelectTrigger>
               <SelectContent>
@@ -964,40 +981,40 @@ function App() {
                 <SelectItem value="en">🇺🇸 English</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" size="icon" onClick={()=>setDarkMode(!darkMode)} className="h-12 w-12">
-              {darkMode?<Sun className="h-5 w-5"/>:<Moon className="h-5 w-5"/>}
+            <Button variant="outline" size="icon" onClick={()=>setDarkMode(!darkMode)} className="h-10 w-10">
+              {darkMode?<Sun className="h-4 w-4"/>:<Moon className="h-4 w-4"/>}
             </Button>
             {user && (
-              <Button variant="outline" size="icon" onClick={handleLogout} className="h-12 w-12">
-                <LogOut className="h-5 w-5" />
+              <Button variant="outline" size="icon" onClick={handleLogout} className="h-10 w-10">
+                <LogOut className="h-4 w-4" />
               </Button>
             )}
           </div>
         </header>
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-6">
           <Sidebar t={t} currentStep={currentStep}/>
           <main className="flex-1">
-             <div className="p-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-card-foreground rounded-2xl border border-orange-200/50 dark:border-orange-800/50 shadow-xl">
+             <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-card-foreground rounded-2xl border border-orange-200/50 dark:border-orange-800/50 shadow-xl">
                 {!isSubmitted && (
-                  <div className="pb-8">
-                    <div className="flex items-center space-x-4 mb-6">
-                      <div className="p-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl shadow-lg">
-                        {(()=>{const Icon=getStepIcon(currentStep);return<Icon className="h-8 w-8 text-white"/>})()}
+                  <div className="pb-6">
+                    <div className="flex items-center space-x-4 mb-4">
+                      <div className="p-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl shadow-lg">
+                        {(()=>{const Icon=getStepIcon(currentStep);return<Icon className="h-6 w-6 text-white"/>})()}
                       </div>
                       <div>
-                        <h2 className="text-3xl font-bold text-gray-800 dark:text-white">{getStepTitle(currentStep)}</h2>
-                        <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">{t.step} {currentStep} {t.of} {totalSteps}</p>
+                        <h2 className="text-2xl font-bold text-gray-800 dark:text-white">{getStepTitle(currentStep)}</h2>
+                        <p className="text-base text-gray-600 dark:text-gray-400 font-medium">{t.step} {currentStep} {t.of} {totalSteps}</p>
                       </div>
                     </div>
-                    <Progress value={progress} className="h-4" />
+                    <Progress value={progress} className="h-3" />
                   </div>
                 )}
                 {!isSubmitted && <Separator className="bg-gradient-to-r from-orange-200 to-red-200 dark:from-orange-800 dark:to-red-800 h-0.5"/>}
-                <div className="py-8 min-h-[400px]">{renderCurrentStep()}</div>
+                <div className="py-6 min-h-[350px]">{renderCurrentStep()}</div>
                 {!isSubmitted && (
                   <>
                     <Separator className="bg-gradient-to-r from-orange-200 to-red-200 dark:from-orange-800 dark:to-red-800 h-0.5"/>
-                    <div className="flex justify-between items-center pt-8">
+                    <div className="flex justify-between items-center pt-6">
                       <Button variant="outline" onClick={prevStep} disabled={currentStep===1} className="flex items-center gap-2">
                         <ArrowLeft className="h-4 w-4" />
                         {t.previous}
