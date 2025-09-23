@@ -66,10 +66,22 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fire-flicker": {
+          "0%, 100%": { transform: "scale(1) rotate(0deg)" },
+          "25%": { transform: "scale(1.05) rotate(-1deg)" },
+          "50%": { transform: "scale(0.95) rotate(1deg)" },
+          "75%": { transform: "scale(1.02) rotate(-0.5deg)" },
+        },
+        "fire-glow": {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(249, 115, 22, 0.3)" },
+          "50%": { boxShadow: "0 0 30px rgba(249, 115, 22, 0.6)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fire-flicker": "fire-flicker 2s ease-in-out infinite",
+        "fire-glow": "fire-glow 3s ease-in-out infinite",
       },
     },
   },
