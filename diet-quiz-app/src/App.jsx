@@ -203,7 +203,7 @@ const Sidebar = ({ t, currentStep }) => {
               <div className={cn(
                 "flex flex-col items-center gap-1 p-3 rounded-xl transition-all duration-300 text-xs font-medium cursor-pointer min-w-[80px]",
                 currentStep === item.step
-                  ? "bg-gradient-to-br from-white/25 to-white/15 text-white shadow-xl transform scale-105 border-2 border-white/40"
+                  ? "bg-white/10 backdrop-blur-sm text-white shadow-xl transform scale-105 border-2 border-white/20"
                   : "text-white/70 hover:bg-white/10 backdrop-blur-sm hover:shadow-lg border border-transparent hover:border-white/20"
               )}>
                 <div className="p-2 rounded-lg bg-white/10">
@@ -238,7 +238,7 @@ const Sidebar = ({ t, currentStep }) => {
             <div className={cn(
                 "flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-sm font-medium cursor-pointer",
               currentStep === item.step
-                  ? "bg-gradient-to-r from-white/20 to-white/10 text-white shadow-lg transform scale-105 border border-white/30"
+                  ? "bg-white/10 backdrop-blur-sm text-white shadow-lg transform scale-105 border border-white/20"
                   : "text-white/80 hover:bg-white/10 backdrop-blur-sm hover:shadow-md border border-transparent hover:border-white/20"
             )}>
               <item.icon className={cn(
@@ -299,9 +299,9 @@ const Button = React.forwardRef(({ className, variant, size, asChild = false, ..
 Button.displayName = "Button";
 const Input=React.forwardRef(({className,type,...props},ref)=>{return<input type={type}className={cn("flex h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-white/60 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}ref={ref}{...props}/>});Input.displayName="Input";
 const Label=React.forwardRef(({className,...props},ref)=>(<LabelPrimitive.Root ref={ref}className={cn("text-sm font-elegant-label leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white/90",className)}{...props}/>));Label.displayName=LabelPrimitive.Root.displayName;
-const Select=SelectPrimitive.Root;const SelectValue=SelectPrimitive.Value;const SelectTrigger=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Trigger ref={ref}className={cn("flex h-12 w-full items-center justify-between rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-white/60 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}{...props}>{children}<SelectPrimitive.Icon asChild><ChevronDownIcon className="h-4 w-4 opacity-50"/></SelectPrimitive.Icon></SelectPrimitive.Trigger>));SelectTrigger.displayName=SelectPrimitive.Trigger.displayName;const SelectContent=React.forwardRef(({className,children,position="popper",...props},ref)=>(<SelectPrimitive.Portal><SelectPrimitive.Content ref={ref}className={cn("relative z-50 min-w-[8rem] overflow-hidden rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",position==="popper"&&"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",className)}position={position}{...props}><SelectPrimitive.Viewport className={cn("p-1",position==="popper"&&"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport></SelectPrimitive.Content></SelectPrimitive.Portal>));SelectContent.displayName=SelectPrimitive.Content.displayName;const SelectItem=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Item ref={ref}className={cn("relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2 text-sm font-elegant-input outline-none focus:bg-white/20 hover:bg-white/10 text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-all duration-200",className)}{...props}><span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"><SelectPrimitive.ItemIndicator><CheckIcon className="h-4 w-4"/></SelectPrimitive.ItemIndicator></span><SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText></SelectPrimitive.Item>));SelectItem.displayName=SelectPrimitive.Item.displayName;
+const Select=SelectPrimitive.Root;const SelectValue=SelectPrimitive.Value;const SelectTrigger=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Trigger ref={ref}className={cn("flex h-12 w-full items-center justify-between rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-white/60 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}{...props}>{children}<SelectPrimitive.Icon asChild><ChevronDownIcon className="h-4 w-4 opacity-50"/></SelectPrimitive.Icon></SelectPrimitive.Trigger>));SelectTrigger.displayName=SelectPrimitive.Trigger.displayName;const SelectContent=React.forwardRef(({className,children,position="popper",...props},ref)=>(<SelectPrimitive.Portal><SelectPrimitive.Content ref={ref}className={cn("relative z-50 min-w-[8rem] overflow-hidden rounded-xl border-2 border-white/20 bg-white dark:bg-gray-800 backdrop-blur-sm text-gray-900 dark:text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",position==="popper"&&"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",className)}position={position}{...props}><SelectPrimitive.Viewport className={cn("p-1",position==="popper"&&"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport></SelectPrimitive.Content></SelectPrimitive.Portal>));SelectContent.displayName=SelectPrimitive.Content.displayName;const SelectItem=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Item ref={ref}className={cn("relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2 text-sm font-elegant-input outline-none focus:bg-blue-100 dark:focus:bg-white/20 hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-all duration-200",className)}{...props}><span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"><SelectPrimitive.ItemIndicator><CheckIcon className="h-4 w-4"/></SelectPrimitive.ItemIndicator></span><SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText></SelectPrimitive.Item>));SelectItem.displayName=SelectPrimitive.Item.displayName;
 const RadioGroup=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Root className={cn("grid gap-2",className)}{...props}ref={ref}/>)});RadioGroup.displayName=RadioGroupPrimitive.Root.displayName;const RadioGroupItem=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Item ref={ref}className={cn("aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",className)}{...props}><RadioGroupPrimitive.Indicator className="flex items-center justify-center"><CircleIcon className="h-2.5 w-2.5 fill-current text-current"/></RadioGroupPrimitive.Indicator></RadioGroupPrimitive.Item>)});RadioGroupItem.displayName=RadioGroupPrimitive.Item.displayName;
-const Progress=React.forwardRef(({className,value,...props},ref)=>(<div ref={ref}className={cn("relative h-3 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800",className)}{...props}><div className="h-full bg-gradient-to-r from-black to-gray-800 dark:from-white dark:to-gray-200 transition-all duration-500 ease-out"style={{width:`${Math.max(value||0, 0)}%`}}/></div>));Progress.displayName="Progress";const Separator=React.forwardRef(({className,orientation='horizontal',decorative=true,...props},ref)=>(<SeparatorPrimitive.Root ref={ref}decorative={decorative}orientation={orientation}className={cn('shrink-0 bg-border',orientation==='horizontal'?'h-[1px] w-full':'h-full w-[1px]',className)}{...props}/>));Separator.displayName=SeparatorPrimitive.Root.displayName;
+const Progress=React.forwardRef(({className,value,...props},ref)=>(<div ref={ref}className={cn("relative h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800",className)}{...props}><div className="h-full bg-gradient-to-r from-black to-gray-800 dark:from-white dark:to-gray-200 transition-all duration-500 ease-out"style={{width:`${Math.max(value||0, 0)}%`}}/></div>));Progress.displayName="Progress";const Separator=React.forwardRef(({className,orientation='horizontal',decorative=true,...props},ref)=>(<SeparatorPrimitive.Root ref={ref}decorative={decorative}orientation={orientation}className={cn('shrink-0 bg-border',orientation==='horizontal'?'h-[1px] w-full':'h-full w-[1px]',className)}{...props}/>));Separator.displayName=SeparatorPrimitive.Root.displayName;
 const Checkbox=React.forwardRef(({className,...props},ref)=>(<CheckboxPrimitive.Root ref={ref}className={cn("peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",className)}{...props}><CheckboxPrimitive.Indicator className={cn("flex items-center justify-center text-current")}><CheckIcon className="h-4 w-4"/></CheckboxPrimitive.Indicator></CheckboxPrimitive.Root>));Checkbox.displayName=CheckboxPrimitive.Root.displayName;
 const Textarea = React.forwardRef(({ className, ...props }, ref) => { return (<textarea className={cn("flex min-h-[80px] w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-white/60 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 resize-none", className)} ref={ref} {...props} />); }); Textarea.displayName = "Textarea";
 
@@ -1032,7 +1032,7 @@ function App() {
           <div className="text-center mt-4">
             <div className="flex items-center justify-center gap-2">
               <Select onValueChange={setLanguage} value={language}>
-                <SelectTrigger className="w-auto h-8 px-2 bg-white dark:bg-gray-800 border-2 border-blue-200 dark:border-blue-700 rounded-lg text-xs">
+                <SelectTrigger className="w-auto h-8 px-2 bg-white/10 dark:bg-white/3 border-2 border-white/20 dark:border-white/8 rounded-lg text-xs text-white">
                   <SelectValue>{language==='pt'?'🇧🇷 PT':'🇺🇸 EN'}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>
@@ -1051,7 +1051,7 @@ function App() {
   }
 
   console.log('App component rendering...');
-  
+
   return (
     <>
       <div className="min-h-screen relative flex flex-col textured-background dark:textured-background-dark p-2 sm:p-4">
@@ -1105,30 +1105,28 @@ function App() {
           {/* Conteúdo principal */}
           <main className="flex-1 min-h-0">
             <div className="h-full p-2 sm:p-4 bg-white/15 dark:bg-white/5 backdrop-blur-md text-white rounded-3xl shadow-2xl border border-white/25 dark:border-white/10 overflow-y-auto">
-              {!isSubmitted && (
+                {!isSubmitted && (
                 <div className="pb-3">
                   <div className="flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-4">
                     <div className="p-2 sm:p-3 bg-gradient-to-br from-white/25 to-white/15 rounded-2xl shadow-xl border-2 border-white/30 animate-pulse">
                       {(()=>{const Icon=getStepIcon(currentStep);return<Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white"/>})()}
-                    </div>
+                      </div>
                     <div className="flex-1">
                       <h2 className="text-lg sm:text-2xl font-elegant-title text-white text-glow">{getStepTitle(currentStep)}</h2>
                       <p className="text-sm sm:text-base font-elegant-subtitle text-white/80 text-elegant-shadow">{t.step} {currentStep} {t.of} {totalSteps}</p>
+                      </div>
                     </div>
-                  </div>
                   <div className="relative">
-                    <Progress value={progress} className="h-3 rounded-full" />
+                    <Progress value={progress} className="h-2 rounded-full" />
                   </div>
-                </div>
-              )}
+                  </div>
+                )}
 
-              {!isSubmitted && <Separator className="bg-gradient-to-r from-white/20 to-white/10 h-0.5 mb-3" />}
 
               <div className="py-3 min-h-[250px]">{renderCurrentStep()}</div>
 
-              {!isSubmitted && (
-                <>
-                  <Separator className="bg-gradient-to-r from-white/20 to-white/10 h-0.5" />
+                {!isSubmitted && (
+                  <>
                   {/* Navegação simples (sem carrossel e sem setas soltas) */}
                   <div className="flex justify-between items-center pt-4 sm:pt-6 gap-3">
                     <Button 
@@ -1137,43 +1135,43 @@ function App() {
                       disabled={currentStep===1}
                       className="items-center gap-2"
                     >
-                      <ArrowLeft className="h-4 w-4" />
+                        <ArrowLeft className="h-4 w-4" />
                       <span className="font-elegant-button">{t.previous}</span>
-                    </Button>
+                      </Button>
 
-                    {currentStep === totalSteps ? (
+                      {currentStep === totalSteps ? (
                       <Button 
                         variant="success"
                         onClick={submitQuiz}
                         disabled={isSubmitting}
                         className="items-center gap-2"
                       >
-                        {isSubmitting ? (
-                          <>
-                            <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                          {isSubmitting ? (
+                            <>
+                              <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
                             <span className="font-elegant-button">{t.loading}</span>
-                          </>
-                        ) : (
-                          <>
-                            <Flame className="h-4 w-4" />
+                            </>
+                          ) : (
+                            <>
+                              <Flame className="h-4 w-4" />
                             <span className="font-elegant-button">{t.submit}</span>
-                          </>
-                        )}
-                      </Button>
-                    ) : (
+                            </>
+                          )}
+                        </Button>
+                      ) : (
                       <Button 
                         variant="default"
                         onClick={nextStep}
                         className="items-center gap-2"
                       >
                         <span className="font-elegant-button">{t.next}</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
+                          <ArrowRight className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </>
+                )}
+             </div>
           </main>
         </div>
       </div>

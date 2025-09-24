@@ -806,6 +806,115 @@ html.dark [data-radix-select-content] {
   color: #ffffff !important;
 }
 
+/* Regras específicas para o dropdown - sobrescrever regras universais */
+html.dark [data-radix-select-content] {
+  background: rgba(31, 41, 55, 0.9) !important;
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-content] [data-radix-select-item] {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-content] [data-radix-select-item-text] {
+  color: #ffffff !important;
+}
+
+/* Força contraste no dropdown */
+.dark .select-content {
+  background: rgba(31, 41, 55, 0.95) !important;
+  color: #ffffff !important;
+}
+
+.dark .select-item {
+  color: #ffffff !important;
+}
+
+.dark .select-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.dark .select-item[data-highlighted] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Regras mais específicas para o dropdown do Radix UI */
+[data-radix-select-content] {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-content] {
+  background: rgba(31, 41, 55, 0.95) !important;
+  color: #ffffff !important;
+}
+
+[data-radix-select-item] {
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-item] {
+  color: #ffffff !important;
+}
+
+[data-radix-select-item]:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-item]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+[data-radix-select-item][data-highlighted] {
+  background: rgba(59, 130, 246, 0.1) !important;
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-item][data-highlighted] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Regras ULTRA específicas para forçar o estilo do dropdown */
+[data-radix-select-content] * {
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-content] * {
+  color: #ffffff !important;
+}
+
+[data-radix-select-content] [data-radix-select-item] * {
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-content] [data-radix-select-item] * {
+  color: #ffffff !important;
+}
+
+/* Força o estilo inline para sobrescrever tudo */
+[data-radix-select-content] {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-content] {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+[data-radix-select-item] {
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-item] {
+  color: #ffffff !important;
+}
+
 /* REGRAS ESPECÍFICAS PARA GRADIENTES E TÍTULOS */
 html.dark .bg-gradient-to-r,
 html.dark .from-blue-600,
@@ -1318,38 +1427,38 @@ html.dark .text-teal-600 {
 }
 
 .button-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
-    0 8px 25px rgba(59, 130, 246, 0.3),
+    0 8px 25px rgba(255, 255, 255, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   color: white;
   font-weight: 600;
 }
 
 .button-primary:hover {
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
   box-shadow: 
-    0 12px 35px rgba(59, 130, 246, 0.4),
+    0 12px 35px rgba(255, 255, 255, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
 
 .button-secondary {
-  background: linear-gradient(135deg, rgba(107, 114, 128, 0.8) 0%, rgba(75, 85, 99, 0.8) 100%);
-  border: 1px solid rgba(107, 114, 128, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
-    0 8px 25px rgba(107, 114, 128, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 8px 25px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   color: white;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .button-secondary:hover {
-  background: linear-gradient(135deg, rgba(75, 85, 99, 0.9) 0%, rgba(55, 65, 81, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
   box-shadow: 
-    0 12px 35px rgba(107, 114, 128, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 12px 35px rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
 
