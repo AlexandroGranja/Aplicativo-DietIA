@@ -912,6 +912,30 @@ html.dark [style*="width: 100%"] {
   box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
 }
 
+/* Força branco para barra de progresso no modo escuro */
+html.dark .bg-gradient-to-r.from-black.to-gray-800 {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%) !important;
+}
+
+html.dark .bg-gradient-to-r.dark\:from-white.dark\:to-gray-200 {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%) !important;
+}
+
+/* Força branco para qualquer elemento de progresso no modo escuro */
+html.dark [class*="progress"] {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%) !important;
+}
+
+/* Força branco para divs dentro de elementos de progresso no modo escuro */
+html.dark div[style*="width:"] {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%) !important;
+}
+
+/* Força branco para elementos com gradiente no modo escuro */
+html.dark .bg-gradient-to-r {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%) !important;
+}
+
 /* Força branco para o gradiente específico da barra de progresso */
 html.dark .bg-gradient-to-r.from-blue-500.to-teal-500 {
   background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
