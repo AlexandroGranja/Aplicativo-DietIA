@@ -83,22 +83,41 @@
   }
   
   .textured-background {
+    /* Textura CSS elegante com lado escuro (modo claro) */
+    background: 
+      linear-gradient(135deg, #0a5d54 0%, #065f46 20%, #0891b2 40%, #0284c7 70%, #1e40af 100%),
+      radial-gradient(circle at 20% 80%, rgba(0, 0, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(0, 0, 0, 0.08) 0%, transparent 50%);
+    background-size: 100% 100%, 200px 200px, 300px 300px, 150px 150px;
+    position: relative;
+  }
+
+  .textured-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-image: 
-      radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+      linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.03) 50%, transparent 60%),
+      linear-gradient(-45deg, transparent 40%, rgba(255, 255, 255, 0.02) 50%, transparent 60%);
+    background-size: 20px 20px, 30px 30px;
+    pointer-events: none;
   }
   
-.textured-background-dark {
-  /* Gradiente mais profundo e menos lavado no modo escuro */
-  background:
-    linear-gradient(135deg, #0f172a 0%, #1e3a8a 35%, #312e81 65%, #581c87 100%),
-    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
-  background-size: 300% 300%, 100px 100px, 100px 100px, 100px 100px;
-  animation: texturedGradient 24s ease infinite, textureDrift 30s linear infinite;
-}
+  .textured-background-dark {
+  /* Papel de parede com gradiente mais escuro (modo escuro) */
+    background-image: 
+    linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(5,5,5,0.8) 30%, rgba(10,10,10,0.8) 60%, rgba(15,15,15,0.8) 100%),
+    url('/wallpapers/dietia-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-blend-mode: multiply;
+  }
   
   .glass-effect {
     backdrop-filter: blur(10px);
@@ -107,61 +126,22 @@
   }
   
   .glass-effect-dark {
-    backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  /* Fundo com textura elegante */
+  /* Fundo liso sem texturas/linhas (modo claro) */
   .textured-background {
-    background: 
-      linear-gradient(135deg, #1e3a8a 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #f59e0b 100%),
-      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M50 50c0-27.614-22.386-50-50-50v100c27.614 0 50-22.386 50-50z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
-      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    background-size: 300% 300%, 100px 100px, 60px 60px;
-    animation: texturedGradient 20s ease infinite, textureDrift 30s linear infinite;
+    background: linear-gradient(135deg, #0f766e 0%, #0a7fa3 40%, #0b5ea0 70%, #1f3f7a 100%);
+    background-size: cover;
     position: relative;
     overflow: hidden;
   }
 
-  /* Efeito de partículas flutuantes */
-  .floating-elements {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .floating-element {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    animation: floatUp 15s infinite linear;
-  }
-
-  .floating-element:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
-  .floating-element:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 2s; }
-  .floating-element:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 4s; }
-  .floating-element:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 6s; }
-  .floating-element:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 8s; }
-  .floating-element:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 10s; }
-  .floating-element:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 12s; }
-  .floating-element:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 14s; }
-  .floating-element:nth-child(9) { width: 4px; height: 4px; left: 90%; animation-delay: 16s; }
-
-  /* Efeito de ondas na parte inferior */
-  .wave-pattern {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E") repeat-x;
-    animation: waveMove 10s ease-in-out infinite;
-  }
+  /* Efeitos de fundo removidos */
+  .floating-elements { display: none; }
+  .wave-pattern { display: none; }
 
   /* Opção 1: Textura de mármore */
   .marble-texture {
@@ -227,22 +207,7 @@
     animation: mist 25s ease-in-out infinite;
   }
 
-  /* Efeito de brilho */
-  .glow-effect {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glow-effect::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    animation: shine 3s infinite;
-  }
+  /* Efeito de brilho removido */
 
   /* Efeito de ondas */
   .wave-effect {
@@ -337,10 +302,7 @@
   50% { opacity: 0.6; transform: scale(1.1); }
 }
 
-@keyframes shine {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
+/* Animação shine removida */
 
 @keyframes wave {
   0%, 100% { transform: translateX(0px); }
@@ -382,6 +344,8 @@
   }
 }
 
+/* Animações desabilitadas para visual mais limpo e profissional */
+/*
 @keyframes elegantGradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -416,6 +380,7 @@
   0% { background-position: 0px 0px, 0px 0px, 0px 0px; }
   100% { background-position: 0px 0px, -100px -100px, -60px -60px; }
 }
+*/
 
 @keyframes floatUp {
   0% {
@@ -537,19 +502,495 @@
   background-clip: text;
 }
 
-/* Texto com alto contraste sobre vidro/texturas claras */
+/* Texto com contraste adequado para cada modo */
 .text-on-glass {
-  color: #f8fafc; /* near-white */
+  color: #1f2937; /* dark gray for light mode */
+  text-shadow:
+    0 1px 2px rgba(255,255,255,0.5),
+    0 2px 4px rgba(255,255,255,0.3);
+}
+
+.text-on-glass-dim {
+  color: #374151; /* medium gray for light mode */
+  text-shadow:
+    0 1px 2px rgba(255,255,255,0.4),
+    0 2px 4px rgba(255,255,255,0.2);
+}
+
+/* Modo escuro - texto branco */
+.dark .text-on-glass {
+  color: #f8fafc; /* near-white for dark mode */
   text-shadow:
     0 2px 4px rgba(0,0,0,0.35),
     0 6px 20px rgba(0,0,0,0.25);
 }
 
-.text-on-glass-dim {
+.dark .text-on-glass-dim {
   color: rgba(248, 250, 252, 0.9);
   text-shadow:
     0 1px 3px rgba(0,0,0,0.3),
     0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Padrão global de cores de texto - Força as cores */
+.text-content {
+  color: #111827 !important; /* muito escuro para light mode */
+}
+
+.text-content-dim {
+  color: #374151 !important; /* escuro para light mode */
+}
+
+.text-content-muted {
+  color: #4b5563 !important; /* médio escuro para light mode */
+}
+
+/* Modo escuro - texto branco */
+.dark .text-content {
+  color: #ffffff !important; /* branco puro para dark mode */
+}
+
+.dark .text-content-dim {
+  color: #ffffff !important; /* branco puro para dark mode */
+}
+
+.dark .text-content-muted {
+  color: #ffffff !important; /* branco puro para dark mode */
+}
+
+/* Força cores brancas no modo escuro para todos os textos */
+.dark .text-white {
+  color: #ffffff !important; /* branco puro */
+}
+
+.dark .text-white\/90 {
+  color: #ffffff !important; /* branco puro */
+}
+
+.dark .text-white\/80 {
+  color: #ffffff !important; /* branco puro */
+}
+
+.dark .text-white\/70 {
+  color: #ffffff !important; /* branco puro */
+}
+
+/* Força cores brancas para labels e textos específicos no modo escuro */
+.dark label {
+  color: #ffffff !important;
+}
+
+.dark p {
+  color: #ffffff !important;
+}
+
+.dark span {
+  color: #ffffff !important;
+}
+
+.dark div {
+  color: #ffffff !important;
+}
+
+/* Força branco para todos os elementos de texto no modo escuro */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: #ffffff !important;
+}
+
+.dark input::placeholder {
+  color: #ffffff !important;
+}
+
+.dark select {
+  color: #ffffff !important;
+}
+
+.dark option {
+  color: #ffffff !important;
+}
+
+.dark button {
+  color: #ffffff !important;
+}
+
+.dark a {
+  color: #ffffff !important;
+}
+
+.dark li {
+  color: #ffffff !important;
+}
+
+.dark td, .dark th {
+  color: #ffffff !important;
+}
+
+/* Força branco para classes específicas do Tailwind no modo escuro */
+.dark .text-gray-300,
+.dark .text-gray-400,
+.dark .text-gray-500,
+.dark .text-gray-600,
+.dark .text-gray-700,
+.dark .text-gray-800,
+.dark .text-gray-900 {
+  color: #ffffff !important;
+}
+
+.dark .text-slate-300,
+.dark .text-slate-400,
+.dark .text-slate-500,
+.dark .text-slate-600,
+.dark .text-slate-700,
+.dark .text-slate-800,
+.dark .text-slate-900 {
+  color: #ffffff !important;
+}
+
+/* Força branco para classes de cor específicas no modo escuro */
+.dark .text-blue-600,
+.dark .text-blue-700,
+.dark .text-blue-800,
+.dark .text-blue-900,
+.dark .text-indigo-600,
+.dark .text-indigo-700,
+.dark .text-indigo-800,
+.dark .text-indigo-900,
+.dark .text-purple-600,
+.dark .text-purple-700,
+.dark .text-purple-800,
+.dark .text-purple-900 {
+  color: #ffffff !important;
+}
+
+/* Força branco para elementos específicos do menu lateral */
+.dark .sidebar-item,
+.dark .menu-item,
+.dark .nav-item {
+  color: #ffffff !important;
+}
+
+.dark .sidebar-item span,
+.dark .menu-item span,
+.dark .nav-item span {
+  color: #ffffff !important;
+}
+
+/* Força branco para títulos e subtítulos no modo escuro */
+.dark .card-title,
+.dark .step-title,
+.dark .progress-text {
+  color: #ffffff !important;
+}
+
+/* Força branco para todos os textos dentro de cards no modo escuro */
+.dark .card * {
+  color: #ffffff !important;
+}
+
+.dark .glass-effect * {
+  color: #ffffff !important;
+}
+
+/* Força branco para ícones e textos de menu */
+.dark svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+.dark .icon {
+  color: #ffffff !important;
+}
+
+/* Força branco para classes específicas encontradas no App.jsx */
+.dark .text-gray-800 {
+  color: #ffffff !important;
+}
+
+.dark .bg-gradient-to-r {
+  background: none !important;
+  color: #ffffff !important;
+}
+
+.dark .from-blue-600 {
+  color: #ffffff !important;
+}
+
+.dark .to-teal-600 {
+  color: #ffffff !important;
+}
+
+.dark .bg-clip-text {
+  background: none !important;
+  color: #ffffff !important;
+}
+
+.dark .text-transparent {
+  color: #ffffff !important;
+}
+
+/* Força branco para todos os h1, h2, h3, h4, h5, h6 no modo escuro */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: #ffffff !important;
+  background: none !important;
+}
+
+/* Força branco para todos os elementos com classes de gradiente no modo escuro */
+.dark [class*="gradient"] {
+  background: none !important;
+  color: #ffffff !important;
+}
+
+.dark [class*="from-"] {
+  color: #ffffff !important;
+}
+
+.dark [class*="to-"] {
+  color: #ffffff !important;
+}
+
+/* REGRAS ESPECÍFICAS PARA ELEMENTOS DE TEXTO - NÃO UNIVERSAL */
+html.dark p, html.dark span, html.dark div, html.dark label, html.dark button, html.dark input, html.dark select, html.dark textarea {
+  color: #ffffff !important;
+}
+
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+  color: #ffffff !important;
+  background: none !important;
+}
+
+html.dark .text-gray-800 {
+  color: #ffffff !important;
+}
+
+html.dark .bg-gradient-to-r {
+  background: none !important;
+  color: #ffffff !important;
+}
+
+html.dark .from-blue-600 {
+  color: #ffffff !important;
+}
+
+html.dark .to-teal-600 {
+  color: #ffffff !important;
+}
+
+html.dark .bg-clip-text {
+  background: none !important;
+  color: #ffffff !important;
+}
+
+html.dark .text-transparent {
+  color: #ffffff !important;
+}
+
+/* Força branco para TODOS os elementos no modo escuro */
+html.dark div, html.dark span, html.dark p, html.dark label, html.dark button, html.dark input, html.dark select, html.dark textarea {
+  color: #ffffff !important;
+}
+
+/* Força branco para elementos específicos do Radix UI */
+html.dark [data-radix-collection-item] {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-label] {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-trigger] {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-content] {
+  color: #ffffff !important;
+}
+
+/* REGRAS ESPECÍFICAS PARA GRADIENTES E TÍTULOS */
+html.dark .bg-gradient-to-r,
+html.dark .from-blue-600,
+html.dark .to-teal-600,
+html.dark .bg-clip-text,
+html.dark .text-transparent {
+  background: none !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+}
+
+/* Força branco para TODOS os gradientes no modo escuro */
+html.dark [class*="gradient"],
+html.dark [class*="from-"],
+html.dark [class*="to-"],
+html.dark [class*="bg-clip"],
+html.dark [class*="text-transparent"] {
+  background: none !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+}
+
+/* Força branco para elementos com gradiente específico */
+html.dark .bg-gradient-to-r.from-blue-600.to-teal-600 {
+  background: none !important;
+  color: #ffffff !important;
+}
+
+/* Força branco para títulos específicos */
+html.dark h1.bg-gradient-to-r,
+html.dark h2.bg-gradient-to-r,
+html.dark h3.bg-gradient-to-r,
+html.dark h4.bg-gradient-to-r,
+html.dark h5.bg-gradient-to-r,
+html.dark h6.bg-gradient-to-r {
+  background: none !important;
+  color: #ffffff !important;
+}
+
+/* REGRAS ULTRA ESPECÍFICAS PARA ELEMENTOS ESPECÍFICOS */
+/* Força branco para "Dados Pessoais" e "Passo 1 de 8" */
+html.dark .text-2xl,
+html.dark .text-xl,
+html.dark .text-lg,
+html.dark .text-base,
+html.dark .text-sm {
+  color: #ffffff !important;
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+}
+
+/* Força branco para barra de progresso */
+html.dark .bg-blue-600,
+html.dark .bg-blue-500,
+html.dark .bg-indigo-600,
+html.dark .bg-purple-600,
+html.dark .bg-teal-600 {
+  background-color: #ffffff !important;
+}
+
+/* Força branco para barra de progresso específica - efeito simples */
+html.dark [data-radix-progress-indicator] {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
+}
+
+html.dark .progress-indicator,
+html.dark .progress-bar,
+html.dark .progress-fill {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
+}
+
+/* Força branco para elementos de progresso - efeito simples */
+html.dark [role="progressbar"],
+html.dark [aria-valuenow] {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
+}
+
+/* Força branco para classes de progresso do Tailwind - efeito simples */
+html.dark .w-\[12\.5\%\],
+html.dark .w-\[25\%\],
+html.dark .w-\[50\%\],
+html.dark .w-\[75\%\],
+html.dark .w-\[100\%\] {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
+}
+
+/* Força branco para elementos com largura específica - efeito simples */
+html.dark [style*="width: 12.5%"],
+html.dark [style*="width: 25%"],
+html.dark [style*="width: 50%"],
+html.dark [style*="width: 75%"],
+html.dark [style*="width: 100%"] {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
+}
+
+/* Força branco para o gradiente específico da barra de progresso */
+html.dark .bg-gradient-to-r.from-blue-500.to-teal-500 {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
+}
+
+/* Força branco para o indicador de progresso específico */
+html.dark [data-radix-progress-indicator].bg-gradient-to-r {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
+}
+
+/* Força branco para elementos com transform específico */
+html.dark [style*="transform: translateX"] {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3) !important;
+}
+
+/* Força branco para elementos com classes de tamanho específicas */
+html.dark .text-2xl.font-bold,
+html.dark .text-xl.font-bold,
+html.dark .text-lg.font-bold {
+  color: #ffffff !important;
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+}
+
+/* Força branco para elementos com gradiente específico */
+html.dark .bg-gradient-to-r.from-blue-600.to-teal-600.bg-clip-text.text-transparent {
+  background: none !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+}
+
+/* Força branco para elementos com classes de cor específicas */
+html.dark .text-blue-600,
+html.dark .text-blue-500,
+html.dark .text-indigo-600,
+html.dark .text-purple-600,
+html.dark .text-teal-600 {
+  color: #ffffff !important;
+}
+
+/* Força cores escuras no modo claro para todos os textos */
+:not(.dark) .text-white {
+  color: #111827 !important; /* muito escuro */
+}
+
+:not(.dark) .text-white\/90 {
+  color: #374151 !important; /* escuro */
+}
+
+:not(.dark) .text-white\/80 {
+  color: #374151 !important; /* escuro */
+}
+
+:not(.dark) .text-white\/70 {
+  color: #4b5563 !important; /* médio escuro */
+}
+
+/* Força cores escuras para labels e textos específicos */
+:not(.dark) label {
+  color: #111827 !important;
+}
+
+:not(.dark) p {
+  color: #374151 !important;
+}
+
+:not(.dark) span {
+  color: #374151 !important;
+}
+
+:not(.dark) div {
+  color: #374151 !important;
 }
 
 /* Efeitos de clique incríveis para botões */
@@ -807,4 +1248,116 @@
   background: linear-gradient(to left, rgba(20, 184, 166, 0.3), transparent);
   pointer-events: none;
   z-index: 5;
+}
+
+/* Novos estilos de botão elegantes */
+.button-elegant {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.button-elegant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.button-elegant:hover::before {
+  left: 100%;
+}
+
+.button-elegant:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.button-elegant:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.button-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 
+    0 8px 25px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 600;
+}
+
+.button-primary:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  box-shadow: 
+    0 12px 35px rgba(59, 130, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.button-secondary {
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.8) 0%, rgba(75, 85, 99, 0.8) 100%);
+  border: 1px solid rgba(107, 114, 128, 0.3);
+  box-shadow: 
+    0 8px 25px rgba(107, 114, 128, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 500;
+}
+
+.button-secondary:hover {
+  background: linear-gradient(135deg, rgba(75, 85, 99, 0.9) 0%, rgba(55, 65, 81, 0.9) 100%);
+  box-shadow: 
+    0 12px 35px rgba(107, 114, 128, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.button-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 
+    0 8px 25px rgba(16, 185, 129, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 600;
+}
+
+.button-success:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 
+    0 12px 35px rgba(16, 185, 129, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.button-outline {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.button-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }

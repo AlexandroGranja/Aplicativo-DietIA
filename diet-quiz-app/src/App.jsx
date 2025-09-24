@@ -261,12 +261,47 @@ const Sidebar = ({ t, currentStep }) => {
 };
 
 // --- Componentes da UI ---
-const buttonVariants=cva("inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-elegant-button ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 backdrop-blur-sm",{variants:{variant:{default:"bg-gradient-to-r from-blue-500 to-teal-500 text-white hover:from-blue-600 hover:to-teal-600 shadow-lg hover:shadow-xl transform hover:scale-105",outline:"border-2 border-white/20 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"},size:{default:"h-10 px-4 py-2",icon:"h-10 w-10"}},defaultVariants:{variant:"default",size:"default"}});const Button=React.forwardRef(({className,variant,size,asChild=false,...props},ref)=>{const Comp=asChild?Slot:"button";return<Comp className={cn(buttonVariants({variant,size,className}))}ref={ref}{...props}/>});Button.displayName="Button";
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-elegant-button ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "button-primary button-click-effect button-ripple",
+        outline: "button-outline button-click-effect",
+        secondary: "button-secondary button-click-effect button-ripple",
+        success: "button-success button-click-effect button-ripple",
+        elegant: "button-elegant button-click-effect button-ripple"
+      },
+      size: {
+        default: "h-12 px-6 py-3",
+        sm: "h-10 px-4 py-2 text-xs",
+        lg: "h-14 px-8 py-4 text-base",
+        icon: "h-12 w-12"
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default"
+    }
+  }
+);
+
+const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
+  const Comp = asChild ? Slot : "button";
+  return (
+    <Comp
+      className={cn(buttonVariants({ variant, size, className }))}
+      ref={ref}
+      {...props}
+    />
+  );
+});
+Button.displayName = "Button";
 const Input=React.forwardRef(({className,type,...props},ref)=>{return<input type={type}className={cn("flex h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-white/60 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}ref={ref}{...props}/>});Input.displayName="Input";
 const Label=React.forwardRef(({className,...props},ref)=>(<LabelPrimitive.Root ref={ref}className={cn("text-sm font-elegant-label leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white/90",className)}{...props}/>));Label.displayName=LabelPrimitive.Root.displayName;
 const Select=SelectPrimitive.Root;const SelectValue=SelectPrimitive.Value;const SelectTrigger=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Trigger ref={ref}className={cn("flex h-12 w-full items-center justify-between rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-white/60 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}{...props}>{children}<SelectPrimitive.Icon asChild><ChevronDownIcon className="h-4 w-4 opacity-50"/></SelectPrimitive.Icon></SelectPrimitive.Trigger>));SelectTrigger.displayName=SelectPrimitive.Trigger.displayName;const SelectContent=React.forwardRef(({className,children,position="popper",...props},ref)=>(<SelectPrimitive.Portal><SelectPrimitive.Content ref={ref}className={cn("relative z-50 min-w-[8rem] overflow-hidden rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",position==="popper"&&"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",className)}position={position}{...props}><SelectPrimitive.Viewport className={cn("p-1",position==="popper"&&"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport></SelectPrimitive.Content></SelectPrimitive.Portal>));SelectContent.displayName=SelectPrimitive.Content.displayName;const SelectItem=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Item ref={ref}className={cn("relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2 text-sm font-elegant-input outline-none focus:bg-white/20 hover:bg-white/10 text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-all duration-200",className)}{...props}><span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"><SelectPrimitive.ItemIndicator><CheckIcon className="h-4 w-4"/></SelectPrimitive.ItemIndicator></span><SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText></SelectPrimitive.Item>));SelectItem.displayName=SelectPrimitive.Item.displayName;
 const RadioGroup=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Root className={cn("grid gap-2",className)}{...props}ref={ref}/>)});RadioGroup.displayName=RadioGroupPrimitive.Root.displayName;const RadioGroupItem=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Item ref={ref}className={cn("aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",className)}{...props}><RadioGroupPrimitive.Indicator className="flex items-center justify-center"><CircleIcon className="h-2.5 w-2.5 fill-current text-current"/></RadioGroupPrimitive.Indicator></RadioGroupPrimitive.Item>)});RadioGroupItem.displayName=RadioGroupPrimitive.Item.displayName;
-const Progress=React.forwardRef(({className,value,...props},ref)=>(<ProgressPrimitive.Root ref={ref}className={cn("relative h-3 w-full overflow-hidden rounded-full bg-blue-100 dark:bg-blue-900/30",className)}{...props}><ProgressPrimitive.Indicator className="h-full w-full flex-1 bg-gradient-to-r from-blue-500 to-teal-500 transition-all duration-500 ease-out"style={{transform:`translateX(-${100-(value||0)}%)`}}/></ProgressPrimitive.Root>));Progress.displayName=ProgressPrimitive.Root.displayName;const Separator=React.forwardRef(({className,orientation='horizontal',decorative=true,...props},ref)=>(<SeparatorPrimitive.Root ref={ref}decorative={decorative}orientation={orientation}className={cn('shrink-0 bg-border',orientation==='horizontal'?'h-[1px] w-full':'h-full w-[1px]',className)}{...props}/>));Separator.displayName=SeparatorPrimitive.Root.displayName;
+const Progress=React.forwardRef(({className,value,...props},ref)=>(<ProgressPrimitive.Root ref={ref}className={cn("relative h-3 w-full overflow-hidden rounded-full bg-blue-100 dark:bg-blue-900/30",className)}{...props}><ProgressPrimitive.Indicator className="h-full w-full flex-1 bg-gradient-to-r from-blue-500 to-teal-500 dark:from-white dark:to-gray-200 transition-all duration-500 ease-out"style={{transform:`translateX(-${100-(value||0)}%)`}}/></ProgressPrimitive.Root>));Progress.displayName=ProgressPrimitive.Root.displayName;const Separator=React.forwardRef(({className,orientation='horizontal',decorative=true,...props},ref)=>(<SeparatorPrimitive.Root ref={ref}decorative={decorative}orientation={orientation}className={cn('shrink-0 bg-border',orientation==='horizontal'?'h-[1px] w-full':'h-full w-[1px]',className)}{...props}/>));Separator.displayName=SeparatorPrimitive.Root.displayName;
 const Checkbox=React.forwardRef(({className,...props},ref)=>(<CheckboxPrimitive.Root ref={ref}className={cn("peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",className)}{...props}><CheckboxPrimitive.Indicator className={cn("flex items-center justify-center text-current")}><CheckIcon className="h-4 w-4"/></CheckboxPrimitive.Indicator></CheckboxPrimitive.Root>));Checkbox.displayName=CheckboxPrimitive.Root.displayName;
 const Textarea = React.forwardRef(({ className, ...props }, ref) => { return (<textarea className={cn("flex min-h-[80px] w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-white/60 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 resize-none", className)} ref={ref} {...props} />); }); Textarea.displayName = "Textarea";
 
@@ -597,24 +632,24 @@ function App() {
       case 1: return( 
         <div className="space-y-4">
           <div className="text-center mb-6">
-            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-content mb-2">
               {language === 'pt' ? 'Vamos começar!' : "Let's get started!"}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
+            <p className="text-content-dim text-sm">
               {language === 'pt' ? 'Precisamos de algumas informações básicas' : 'We need some basic information'}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="fullName" className="text-base font-semibold text-gray-700 dark:text-gray-300">{t.fullName}</Label>
+              <Label htmlFor="fullName" className="text-base font-semibold text-content">{t.fullName}</Label>
               <Input id="fullName" placeholder={t.fullNamePlaceholder} value={quizData.fullName} onChange={handleInputChange}/>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="age" className="text-base font-semibold text-gray-700 dark:text-gray-300">{t.age}</Label>
+              <Label htmlFor="age" className="text-base font-semibold text-content">{t.age}</Label>
               <Input id="age" type="number" placeholder={t.agePlaceholder} value={quizData.age} onChange={handleInputChange}/>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="gender" className="text-base font-semibold text-gray-700 dark:text-gray-300">{t.gender}</Label>
+              <Label htmlFor="gender" className="text-base font-semibold text-content">{t.gender}</Label>
               <Select onValueChange={(v)=>handleValueChange('gender',v)} value={quizData.gender}>
                 <SelectTrigger className="h-10">
                   <SelectValue placeholder={t.genderSelect}/>
@@ -627,15 +662,15 @@ function App() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="height" className="text-base font-semibold text-gray-700 dark:text-gray-300">{t.height}</Label>
+              <Label htmlFor="height" className="text-base font-semibold text-content">{t.height}</Label>
               <Input id="height" type="number" placeholder={t.heightPlaceholder} value={quizData.height} onChange={handleInputChange}/>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="currentWeight" className="text-base font-semibold text-gray-700 dark:text-gray-300">{t.currentWeight}</Label>
+              <Label htmlFor="currentWeight" className="text-base font-semibold text-content">{t.currentWeight}</Label>
               <Input id="currentWeight" type="number" placeholder={t.currentWeightPlaceholder} value={quizData.currentWeight} onChange={handleInputChange}/>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="targetWeight" className="text-base font-semibold text-gray-700 dark:text-gray-300">{t.targetWeight}</Label>
+              <Label htmlFor="targetWeight" className="text-base font-semibold text-content">{t.targetWeight}</Label>
               <Input id="targetWeight" type="number" placeholder={t.targetWeightPlaceholder} value={quizData.targetWeight} onChange={handleInputChange}/>
             </div>
           </div>
@@ -676,26 +711,26 @@ function App() {
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Sua rotina diária' : 'Your daily routine'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
+            <p className="text-content-dim text-sm">
               {language === 'pt' ? 'Nos conte sobre seus horários' : 'Tell us about your schedule'}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="wakeUpTime" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="wakeUpTime" className="text-base font-semibold text-content flex items-center gap-2">
                 🌅 {t.wakeUpTime}
               </Label>
               <Input id="wakeUpTime" type="time" value={quizData.wakeUpTime} onChange={handleInputChange}/>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="sleepTime" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="sleepTime" className="text-base font-semibold text-content flex items-center gap-2">
                 🌙 {t.sleepTime}
               </Label>
               <Input id="sleepTime" type="time" value={quizData.sleepTime} onChange={handleInputChange}/>
             </div>
           </div>
           <div className="space-y-4">
-            <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+            <Label className="text-base font-semibold text-content flex items-center gap-2">
               🍽️ {t.mealsPerDay}
             </Label>
             <RadioGroup className="grid grid-cols-2 md:grid-cols-4 gap-2" value={quizData.mealsPerDay} onValueChange={(v)=>handleValueChange('mealsPerDay',v)}>
@@ -723,13 +758,13 @@ function App() {
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Atividade física' : 'Physical activity'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
+            <p className="text-content-dim text-sm">
               {language === 'pt' ? 'Como você se mantém ativo?' : 'How do you stay active?'}
             </p>
           </div>
             <div className="space-y-4">
             <div className="space-y-3">
-              <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label className="text-base font-semibold text-content flex items-center gap-2">
                 ⚡ {t.exerciseRegularly}
               </Label>
               <RadioGroup className="grid grid-cols-1 md:grid-cols-3 gap-3" value={quizData.exerciseRegularly} onValueChange={(v)=>handleValueChange('exerciseRegularly',v)}>
@@ -778,14 +813,14 @@ function App() {
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Preferências alimentares' : 'Food preferences'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
+            <p className="text-content-dim text-sm">
               {language === 'pt' ? 'Conte-nos sobre seus gostos' : 'Tell us about your tastes'}
             </p>
           </div>
               <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-3">
-                <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                <Label className="text-base font-semibold text-content flex items-center gap-2">
                   🥬 {t.vegetarian}
                 </Label>
                 <RadioGroup className="flex gap-3" value={quizData.vegetarian} onValueChange={(v)=>handleValueChange('vegetarian',v)}>
@@ -800,7 +835,7 @@ function App() {
                 </RadioGroup>
               </div>
               <div className="space-y-4">
-                <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                <Label className="text-base font-semibold text-content flex items-center gap-2">
                   🌱 {t.vegan}
                 </Label>
                 <RadioGroup className="flex gap-3" value={quizData.vegan} onValueChange={(v)=>handleValueChange('vegan',v)}>
@@ -816,13 +851,13 @@ function App() {
               </div>
             </div>
             <div className="space-y-3">
-              <Label htmlFor="favoriteFoods" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="favoriteFoods" className="text-base font-semibold text-content flex items-center gap-2">
                 ❤️ {t.favoriteFoods}
               </Label>
               <Textarea id="favoriteFoods" placeholder={t.favoriteFoodsPlaceholder} value={quizData.favoriteFoods} onChange={handleInputChange}/>
             </div>
             <div className="space-y-3">
-              <Label className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label className="text-base font-semibold text-content flex items-center gap-2">
                 👨‍🍳 {t.cookingSkill}
               </Label>
               <RadioGroup className="grid grid-cols-1 md:grid-cols-3 gap-3" value={quizData.cookingSkill} onValueChange={(v)=>handleValueChange('cookingSkill',v)}>
@@ -851,25 +886,25 @@ function App() {
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Restrições alimentares' : 'Food restrictions'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
+            <p className="text-content-dim text-sm">
               {language === 'pt' ? 'Informe sobre alergias e intolerâncias' : 'Tell us about allergies and intolerances'}
             </p>
           </div>
             <div className="space-y-4">
             <div className="space-y-3">
-              <Label htmlFor="allergies" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="allergies" className="text-base font-semibold text-content flex items-center gap-2">
                 ⚠️ {t.allergies}
               </Label>
               <Textarea id="allergies" placeholder={t.allergiesPlaceholder} value={quizData.allergies} onChange={handleInputChange}/>
             </div>
             <div className="space-y-3">
-              <Label htmlFor="intolerances" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="intolerances" className="text-base font-semibold text-content flex items-center gap-2">
                 🚫 {t.intolerances}
               </Label>
               <Textarea id="intolerances" placeholder={t.intolerancesPlaceholder} value={quizData.intolerances} onChange={handleInputChange}/>
             </div>
             <div className="space-y-3">
-              <Label htmlFor="dislikedFoods" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="dislikedFoods" className="text-base font-semibold text-content flex items-center gap-2">
                 👎 {t.dislikedFoods}
               </Label>
               <Textarea id="dislikedFoods" placeholder={t.dislikedFoodsPlaceholder} value={quizData.dislikedFoods} onChange={handleInputChange}/>
@@ -883,31 +918,31 @@ function App() {
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {language === 'pt' ? 'Sua alimentação atual' : 'Your current diet'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
+            <p className="text-content-dim text-sm">
               {language === 'pt' ? 'Descreva seus hábitos alimentares' : 'Describe your eating habits'}
             </p>
           </div>
             <div className="space-y-4">
             <div className="space-y-3">
-              <Label htmlFor="currentBreakfast" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="currentBreakfast" className="text-base font-semibold text-content flex items-center gap-2">
                 🌅 {t.currentBreakfast}
               </Label>
               <Textarea id="currentBreakfast" placeholder={t.currentBreakfastPlaceholder} value={quizData.currentBreakfast} onChange={handleInputChange}/>
             </div>
             <div className="space-y-3">
-              <Label htmlFor="currentLunch" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="currentLunch" className="text-base font-semibold text-content flex items-center gap-2">
                 ☀️ {t.currentLunch}
               </Label>
               <Textarea id="currentLunch" placeholder={t.currentLunchPlaceholder} value={quizData.currentLunch} onChange={handleInputChange}/>
             </div>
             <div className="space-y-3">
-              <Label htmlFor="currentDinner" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="currentDinner" className="text-base font-semibold text-content flex items-center gap-2">
                 🌙 {t.currentDinner}
               </Label>
               <Textarea id="currentDinner" placeholder={t.currentDinnerPlaceholder} value={quizData.currentDinner} onChange={handleInputChange}/>
             </div>
             <div className="space-y-3">
-              <Label htmlFor="waterIntake" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+              <Label htmlFor="waterIntake" className="text-base font-semibold text-content flex items-center gap-2">
                 💧 {t.waterIntake}
               </Label>
               <Input id="waterIntake" type="number" placeholder={t.waterIntakePlaceholder} value={quizData.waterIntake} onChange={handleInputChange}/>
@@ -953,7 +988,7 @@ function App() {
           <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg mx-auto mb-4 animate-pulse">
             <Flame className="h-8 w-8 text-white" />
           </div>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-content-dim">
             {language === 'pt' ? 'Carregando...' : 'Loading...'}
           </p>
         </div>
@@ -973,7 +1008,7 @@ function App() {
             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent mb-1">
               DietIA
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 text-xs">
+            <p className="text-content-dim text-xs">
               {language === 'pt' ? 'Sua dieta personalizada com IA' : 'Your personalized AI diet'}
             </p>
           </div>
@@ -1019,29 +1054,17 @@ function App() {
   
   return (
     <>
-      <div className="min-h-screen relative flex flex-col textured-background dark:textured-background-dark p-2 sm:p-4 glow-effect">
-        {/* Efeitos de fundo */}
-        <div className="floating-elements">
-          <div className="floating-element"></div>
-          <div className="floating-element"></div>
-          <div className="floating-element"></div>
-          <div className="floating-element"></div>
-          <div className="floating-element"></div>
-          <div className="floating-element"></div>
-          <div className="floating-element"></div>
-          <div className="floating-element"></div>
-          <div className="floating-element"></div>
-        </div>
-        <div className="wave-pattern"></div>
+      <div className="min-h-screen relative flex flex-col textured-background dark:textured-background-dark p-2 sm:p-4">
+        {/* Efeitos removidos */}
         {/* Header */}
-        <header className="flex items-center justify-between bg-white/15 dark:bg-white/5 backdrop-blur-md text-white p-2 sm:p-3 rounded-2xl shadow-2xl border border-white/20 dark:border-white/10 mb-2 sm:mb-3">
+        <header className="relative z-10 flex items-center justify-between bg-white/15 dark:bg-white/5 backdrop-blur-md text-white p-2 sm:p-3 rounded-2xl shadow-2xl border border-white/20 dark:border-white/10 mb-2 sm:mb-3">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="p-2 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl shadow-lg">
               <Flame className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl sm:text-4xl font-elegant-title text-on-glass">DietIA</h1>
-              <p className="text-xs sm:text-sm font-elegant-subtitle text-on-glass-dim hidden sm:block">
+              <h1 className="text-xl sm:text-4xl font-elegant-title text-white">DietIA</h1>
+              <p className="text-xs sm:text-sm font-elegant-subtitle text-content hidden sm:block">
                 {language === 'pt' ? 'Sua dieta personalizada com IA' : 'Your personalized AI diet'}
               </p>
             </div>
@@ -1062,18 +1085,18 @@ function App() {
                 <SelectItem value="en">🇺🇸 English</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" size="icon" onClick={()=>setDarkMode(!darkMode)} className="h-8 w-8 sm:h-10 sm:w-10 backdrop-blur-sm border border-white/20 text-white bg-white/10 hover:bg-white/20 shrink-0">
+            <Button variant="elegant" size="icon" onClick={()=>setDarkMode(!darkMode)} className="h-8 w-8 sm:h-10 sm:w-10 shrink-0">
               {darkMode?<Sun className="h-4 w-4"/>:<Moon className="h-4 w-4"/>}
             </Button>
             {user && (
-              <Button variant="outline" size="icon" onClick={handleLogout} className="h-8 w-8 sm:h-10 sm:w-10 backdrop-blur-sm border border-white/20 text-white bg-white/10 hover:bg-white/20 shrink-0">
+              <Button variant="elegant" size="icon" onClick={handleLogout} className="h-8 w-8 sm:h-10 sm:w-10 shrink-0">
                 <LogOut className="h-4 w-4" />
               </Button>
             )}
           </div>
         </header>
 
-        <div className="flex flex-col lg:flex-row gap-1 sm:gap-3 flex-1 min-h-0">
+        <div className="relative z-10 flex flex-col lg:flex-row gap-1 sm:gap-3 flex-1 min-h-0">
           {/* Sidebar somente em desktop */}
           <div className="hidden lg:block">
             <Sidebar t={t} currentStep={currentStep} />
@@ -1095,7 +1118,6 @@ function App() {
                   </div>
                   <div className="relative">
                     <Progress value={progress} className="h-3 bg-white/10 rounded-full" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-teal-500/20 rounded-full animate-pulse" />
                   </div>
                 </div>
               )}
@@ -1110,10 +1132,10 @@ function App() {
                   {/* Navegação simples (sem carrossel e sem setas soltas) */}
                   <div className="flex justify-between items-center pt-4 sm:pt-6 gap-3">
                     <Button 
-                      variant="outline"
+                      variant="secondary"
                       onClick={prevStep}
                       disabled={currentStep===1}
-                      className="items-center gap-2 backdrop-blur-md bg-white/15 border-2 border-white/30 text-white hover:bg-white/25 hover:border-white/40 text-sm px-4 py-3 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:transform-none"
+                      className="items-center gap-2"
                     >
                       <ArrowLeft className="h-4 w-4" />
                       <span className="font-elegant-button">{t.previous}</span>
@@ -1121,9 +1143,10 @@ function App() {
 
                     {currentStep === totalSteps ? (
                       <Button 
+                        variant="success"
                         onClick={submitQuiz}
                         disabled={isSubmitting}
-                        className="items-center gap-2 backdrop-blur-md bg-gradient-to-r from-blue-500 to-teal-500 text-white hover:from-blue-600 hover:to-teal-600 text-sm px-4 py-3 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:transform-none"
+                        className="items-center gap-2"
                       >
                         {isSubmitting ? (
                           <>
@@ -1139,8 +1162,9 @@ function App() {
                       </Button>
                     ) : (
                       <Button 
+                        variant="default"
                         onClick={nextStep}
-                        className="items-center gap-2 backdrop-blur-md bg-gradient-to-r from-blue-500 to-teal-500 text-white hover:from-blue-600 hover:to-teal-600 text-sm px-4 py-3 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                        className="items-center gap-2"
                       >
                         <span className="font-elegant-button">{t.next}</span>
                         <ArrowRight className="h-4 w-4" />
