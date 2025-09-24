@@ -8,6 +8,10 @@ export const auth = {
   // Cadastro
   async signUp(email, password, userData = {}) {
     try {
+      console.log('🚀 Iniciando cadastro...')
+      console.log('📧 Email:', email)
+      console.log('👤 Dados do usuário:', userData)
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -15,31 +19,71 @@ export const auth = {
           data: userData
         }
       })
+      
+      console.log('📋 Resposta do signUp:', { data, error })
+      
       if (error) {
-        console.error('Erro no cadastro:', error)
+        console.error('❌ Erro no cadastro:', error)
         return { data: null, error }
       }
 
       // Se o usuário foi criado com sucesso, criar o perfil com username e email
       if (data && data.user && userData.username) {
-        const { error: profileError } = await supabase
+        console.log('👤 Criando perfil para usuário:', data.user.id)
+        console.log('📝 Dados do perfil:', {
+          id: data.user.id,
+          full_name: userData.name || '',
+          username: userData.username,
+          email: email
+        })
+        
+        const { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .insert([{
             id: data.user.id,
             full_name: userData.name || '',
             username: userData.username,
-            email: email // Salvar o email também para facilitar o login
+            email: email
           }])
+          .select()
+
+        console.log('📋 Resposta do insert profile:', { profileData, profileError })
 
         if (profileError) {
-          console.error('Erro ao criar perfil:', profileError)
-          // Não retornar erro aqui, pois o usuário já foi criado
+          console.error('❌ Erro ao criar perfil:', profileError)
+          console.error('❌ Detalhes do erro:', JSON.stringify(profileError, null, 2))
+          
+          // Tentar atualizar se já existir
+          const { data: updateData, error: updateError } = await supabase
+            .from('profiles')
+            .upsert([{
+              id: data.user.id,
+              full_name: userData.name || '',
+              username: userData.username,
+              email: email
+            }])
+            .select()
+          
+          console.log('📋 Resposta do upsert profile:', { updateData, updateError })
+          
+          if (updateError) {
+            console.error('❌ Erro ao atualizar perfil:', updateError)
+            console.error('❌ Detalhes do erro update:', JSON.stringify(updateError, null, 2))
+          } else {
+            console.log('✅ Perfil atualizado com sucesso!')
+          }
+        } else {
+          console.log('✅ Perfil criado com sucesso!')
         }
+      } else {
+        console.log('⚠️ Usuário criado mas sem username ou dados incompletos')
+        console.log('📋 Data:', data)
+        console.log('👤 UserData:', userData)
       }
 
       return { data, error: null }
     } catch (error) {
-      console.error('Erro na autenticação:', error)
+      console.error('❌ Erro na autenticação:', error)
       return { data: null, error: { message: 'Erro de conexão' } }
     }
   },
@@ -103,6 +147,82 @@ export const auth = {
       return { data, error: null }
     } catch (error) {
       console.error('Erro na autenticação:', error)
+      return { data: null, error: { message: 'Erro de conexão' } }
+    }
+  },
+
+  // Login com email e senha (método tradicional)
+  async signInWithEmail(email, password) {
+    try {
+      console.log('🔍 Tentando login com email:', email)
+      
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
+
+      if (error) {
+        console.error('Erro no login:', error)
+        return { data: null, error }
+      }
+      
+      console.log('✅ Login realizado com sucesso!')
+      return { data, error: null }
+    } catch (error) {
+      console.error('Erro na autenticação:', error)
+      return { data: null, error: { message: 'Erro de conexão' } }
+    }
+  },
+
+  // Login com Google
+  async signInWithGoogle() {
+    try {
+      console.log('🔍 Iniciando login com Google...')
+      
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`
+        }
+      })
+
+      if (error) {
+        console.error('❌ Erro no login com Google:', error)
+        return { data: null, error }
+      }
+
+      console.log('✅ Redirecionando para Google...')
+      return { data, error: null }
+    } catch (error) {
+      console.error('❌ Erro na autenticação Google:', error)
+      return { data: null, error: { message: 'Erro de conexão' } }
+    }
+  },
+
+  // Criar perfil automaticamente para usuários do Google
+  async createProfileForGoogleUser(user) {
+    try {
+      console.log('👤 Criando perfil para usuário Google:', user.id)
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .insert([{
+          id: user.id,
+          full_name: user.user_metadata?.full_name || user.user_metadata?.name || '',
+          username: user.user_metadata?.username || user.email?.split('@')[0] || '',
+          email: user.email
+        }])
+        .select()
+
+      if (error) {
+        console.error('❌ Erro ao criar perfil Google:', error)
+        return { data: null, error }
+      }
+
+      console.log('✅ Perfil Google criado com sucesso!')
+      return { data, error: null }
+    } catch (error) {
+      console.error('❌ Erro ao criar perfil Google:', error)
       return { data: null, error: { message: 'Erro de conexão' } }
     }
   },

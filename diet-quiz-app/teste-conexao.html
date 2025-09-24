@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Conexão Supabase</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Teste de Conexão Supabase</h1>
+    <button onclick="testarConexao()">Testar Conexão</button>
+    <button onclick="testarCadastro()">Testar Cadastro</button>
+    <div id="resultado"></div>
+
+    <script>
+        const supabaseUrl = 'https://ftqnkqmguwncowpwmlvm.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0cW5rcW1ndXduY293cHdtbHZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1ODU1MzIsImV4cCI6MjA3NDE2MTUzMn0.A_8hY7tyg5ZU8VmnMElRkECUzdhhZISpNAnqTj_dw24'
+        
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+
+        async function testarConexao() {
+            const resultado = document.getElementById('resultado')
+            resultado.innerHTML = 'Testando conexão...'
+            
+            try {
+                // Testar consulta na tabela profiles
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .limit(1)
+                
+                if (error) {
+                    resultado.innerHTML = `
+                        <h3>❌ Erro na conexão:</h3>
+                        <p><strong>Código:</strong> ${error.code}</p>
+                        <p><strong>Mensagem:</strong> ${error.message}</p>
+                        <p><strong>Detalhes:</strong> ${error.details}</p>
+                    `
+                } else {
+                    resultado.innerHTML = `
+                        <h3>✅ Conexão OK!</h3>
+                        <p>Dados encontrados: ${data.length}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `
+                }
+            } catch (err) {
+                resultado.innerHTML = `
+                    <h3>❌ Erro de Conexão:</h3>
+                    <p>${err.message}</p>
+                `
+            }
+        }
+
+        async function testarCadastro() {
+            const resultado = document.getElementById('resultado')
+            resultado.innerHTML = 'Testando cadastro...'
+            
+            try {
+                const email = 'teste@exemplo.com'
+                const password = '123456'
+                
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            name: 'Teste Usuário',
+                            username: 'teste123'
+                        }
+                    }
+                })
+                
+                if (error) {
+                    resultado.innerHTML = `
+                        <h3>❌ Erro no cadastro:</h3>
+                        <p><strong>Código:</strong> ${error.code}</p>
+                        <p><strong>Mensagem:</strong> ${error.message}</p>
+                        <p><strong>Detalhes:</strong> ${error.details}</p>
+                    `
+                } else {
+                    resultado.innerHTML = `
+                        <h3>✅ Cadastro OK!</h3>
+                        <p>Usuário criado: ${data.user?.id}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `
+                }
+            } catch (err) {
+                resultado.innerHTML = `
+                    <h3>❌ Erro no cadastro:</h3>
+                    <p>${err.message}</p>
+                `
+            }
+        }
+    </script>
+</body>
+</html>
