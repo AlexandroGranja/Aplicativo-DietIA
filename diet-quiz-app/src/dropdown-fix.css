@@ -1,0 +1,56 @@
+/* SOLUÇÃO FOCADA - Apenas dropdown transparente no modo escuro */
+
+/* Modo claro - mantém como estava */
+[data-radix-select-content] {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-radix-select-content],
+[data-radix-select-content] *,
+[data-radix-select-item],
+[data-radix-select-item] *,
+[data-radix-select-item-text],
+[data-radix-select-item-indicator],
+[data-radix-select-item-indicator] * {
+  color: #1f2937 !important;
+  background-color: transparent !important;
+}
+
+/* Modo escuro - fundo transparente com letras brancas */
+html.dark [data-radix-select-content] {
+  background: transparent !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark [data-radix-select-content],
+html.dark [data-radix-select-content] *,
+html.dark [data-radix-select-item],
+html.dark [data-radix-select-item] *,
+html.dark [data-radix-select-item-text],
+html.dark [data-radix-select-item-indicator],
+html.dark [data-radix-select-item-indicator] * {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+/* Hover states */
+[data-radix-select-item]:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.dark [data-radix-select-item]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-radix-select-item][data-highlighted] {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+html.dark [data-radix-select-item][data-highlighted] {
+  background: rgba(255, 255, 255, 0.15) !important;
+}

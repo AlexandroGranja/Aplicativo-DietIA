@@ -13,6 +13,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import './dropdown-fix.css';
 
 // --- Início dos Componentes e Funções Embutidos ---
 
@@ -297,13 +298,73 @@ const Button = React.forwardRef(({ className, variant, size, asChild = false, ..
   );
 });
 Button.displayName = "Button";
-const Input=React.forwardRef(({className,type,...props},ref)=>{return<input type={type}className={cn("flex h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-white/60 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}ref={ref}{...props}/>});Input.displayName="Input";
-const Label=React.forwardRef(({className,...props},ref)=>(<LabelPrimitive.Root ref={ref}className={cn("text-sm font-elegant-label leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white/90",className)}{...props}/>));Label.displayName=LabelPrimitive.Root.displayName;
-const Select=SelectPrimitive.Root;const SelectValue=SelectPrimitive.Value;const SelectTrigger=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Trigger ref={ref}className={cn("flex h-12 w-full items-center justify-between rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-white/60 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}{...props}>{children}<SelectPrimitive.Icon asChild><ChevronDownIcon className="h-4 w-4 opacity-50"/></SelectPrimitive.Icon></SelectPrimitive.Trigger>));SelectTrigger.displayName=SelectPrimitive.Trigger.displayName;const SelectContent=React.forwardRef(({className,children,position="popper",...props},ref)=>(<SelectPrimitive.Portal><SelectPrimitive.Content ref={ref}className={cn("relative z-50 min-w-[8rem] overflow-hidden rounded-xl border-2 border-white/20 bg-white dark:bg-gray-800 backdrop-blur-sm text-gray-900 dark:text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",position==="popper"&&"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",className)}position={position}{...props}><SelectPrimitive.Viewport className={cn("p-1",position==="popper"&&"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport></SelectPrimitive.Content></SelectPrimitive.Portal>));SelectContent.displayName=SelectPrimitive.Content.displayName;const SelectItem=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Item ref={ref}className={cn("relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2 text-sm font-elegant-input outline-none focus:bg-blue-100 dark:focus:bg-white/20 hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-all duration-200",className)}{...props}><span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"><SelectPrimitive.ItemIndicator><CheckIcon className="h-4 w-4"/></SelectPrimitive.ItemIndicator></span><SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText></SelectPrimitive.Item>));SelectItem.displayName=SelectPrimitive.Item.displayName;
+const Input=React.forwardRef(({className,type,...props},ref)=>{return<input type={type}className={cn("flex h-12 w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 dark:placeholder:text-white/60 text-gray-900 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}ref={ref}{...props}/>});Input.displayName="Input";
+const Label=React.forwardRef(({className,...props},ref)=>(<LabelPrimitive.Root ref={ref}className={cn("text-sm font-elegant-label leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-900 dark:text-white/90",className)}{...props}/>));Label.displayName=LabelPrimitive.Root.displayName;
+const Select=SelectPrimitive.Root;const SelectValue=SelectPrimitive.Value;const SelectTrigger=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Trigger ref={ref}className={cn("flex h-12 w-full items-center justify-between rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-gray-500 dark:placeholder:text-white/60 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",className)}{...props}>{children}<SelectPrimitive.Icon asChild><ChevronDownIcon className="h-4 w-4 opacity-50"/></SelectPrimitive.Icon></SelectPrimitive.Trigger>));SelectTrigger.displayName=SelectPrimitive.Trigger.displayName;const SelectContent=React.forwardRef(({className,children,position="popper",...props},ref)=>{
+  const contentRef = React.useRef(null);
+  
+  React.useEffect(() => {
+    const applyStyles = () => {
+      if (contentRef.current) {
+        // Força estilos no elemento do portal - fundo translúcido no claro, transparente no escuro
+        const element = contentRef.current;
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        const textColor = isDarkMode ? '#ffffff' : '#1f2937';
+        const backgroundColor = isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.95)';
+        const borderColor = isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.2)';
+        
+        console.log('Dropdown styling - isDarkMode:', isDarkMode, 'textColor:', textColor, 'backgroundColor:', backgroundColor);
+        
+        element.style.setProperty('background-color', backgroundColor, 'important');
+        element.style.setProperty('color', textColor, 'important');
+        element.style.setProperty('backdrop-filter', 'blur(8px)', 'important');
+        element.style.setProperty('border', `1px solid ${borderColor}`, 'important');
+        element.style.setProperty('box-shadow', '0 4px 12px rgba(0, 0, 0, 0.3)', 'important');
+        
+        // Força estilos em todos os elementos filhos
+        const allElements = element.querySelectorAll('*');
+        allElements.forEach(el => {
+          el.style.setProperty('color', textColor, 'important');
+          el.style.setProperty('background-color', 'transparent', 'important');
+        });
+        
+        // Força estilos específicos nos itens
+        const items = element.querySelectorAll('[data-radix-select-item]');
+        items.forEach(item => {
+          item.style.setProperty('color', textColor, 'important');
+          item.style.setProperty('background-color', 'transparent', 'important');
+        });
+      }
+    };
+
+    // Aplica estilos imediatamente
+    applyStyles();
+    
+    // Aplica estilos novamente após um pequeno delay para garantir
+    const timeoutId = setTimeout(applyStyles, 100);
+    
+    // Observer para detectar mudanças no DOM
+    const observer = new MutationObserver(applyStyles);
+    if (contentRef.current) {
+      observer.observe(contentRef.current, { 
+        childList: true, 
+        subtree: true, 
+        attributes: true 
+      });
+    }
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, []);
+  
+  return (<SelectPrimitive.Portal><SelectPrimitive.Content ref={(node) => { contentRef.current = node; if (ref) ref.current = node; }}className={cn("relative z-50 min-w-[8rem] overflow-hidden rounded-xl border-2 border-white/20 bg-white/95 backdrop-blur-sm text-gray-900 dark:text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 select-content",position==="popper"&&"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",className)}position={position}{...props}><SelectPrimitive.Viewport className={cn("p-1",position==="popper"&&"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport></SelectPrimitive.Content></SelectPrimitive.Portal>);
+});SelectContent.displayName=SelectPrimitive.Content.displayName;const SelectItem=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Item ref={ref}className={cn("relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2 text-sm font-elegant-input outline-none focus:bg-blue-100 dark:focus:bg-white/20 hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-all duration-200 select-item",className)}{...props}><span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"><SelectPrimitive.ItemIndicator><CheckIcon className="h-4 w-4"/></SelectPrimitive.ItemIndicator></span><SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText></SelectPrimitive.Item>));SelectItem.displayName=SelectPrimitive.Item.displayName;
 const RadioGroup=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Root className={cn("grid gap-2",className)}{...props}ref={ref}/>)});RadioGroup.displayName=RadioGroupPrimitive.Root.displayName;const RadioGroupItem=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Item ref={ref}className={cn("aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",className)}{...props}><RadioGroupPrimitive.Indicator className="flex items-center justify-center"><CircleIcon className="h-2.5 w-2.5 fill-current text-current"/></RadioGroupPrimitive.Indicator></RadioGroupPrimitive.Item>)});RadioGroupItem.displayName=RadioGroupPrimitive.Item.displayName;
 const Progress=React.forwardRef(({className,value,...props},ref)=>(<div ref={ref}className={cn("relative h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800",className)}{...props}><div className="h-full bg-gradient-to-r from-black to-gray-800 dark:from-white dark:to-gray-200 transition-all duration-500 ease-out"style={{width:`${Math.max(value||0, 0)}%`}}/></div>));Progress.displayName="Progress";const Separator=React.forwardRef(({className,orientation='horizontal',decorative=true,...props},ref)=>(<SeparatorPrimitive.Root ref={ref}decorative={decorative}orientation={orientation}className={cn('shrink-0 bg-border',orientation==='horizontal'?'h-[1px] w-full':'h-full w-[1px]',className)}{...props}/>));Separator.displayName=SeparatorPrimitive.Root.displayName;
 const Checkbox=React.forwardRef(({className,...props},ref)=>(<CheckboxPrimitive.Root ref={ref}className={cn("peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",className)}{...props}><CheckboxPrimitive.Indicator className={cn("flex items-center justify-center text-current")}><CheckIcon className="h-4 w-4"/></CheckboxPrimitive.Indicator></CheckboxPrimitive.Root>));Checkbox.displayName=CheckboxPrimitive.Root.displayName;
-const Textarea = React.forwardRef(({ className, ...props }, ref) => { return (<textarea className={cn("flex min-h-[80px] w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-white/60 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 resize-none", className)} ref={ref} {...props} />); }); Textarea.displayName = "Textarea";
+const Textarea = React.forwardRef(({ className, ...props }, ref) => { return (<textarea className={cn("flex min-h-[80px] w-full rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm font-elegant-input ring-offset-background placeholder:text-gray-500 dark:placeholder:text-white/60 text-gray-900 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 resize-none", className)} ref={ref} {...props} />); }); Textarea.displayName = "Textarea";
 
 // --- Fim dos Componentes Embutidos ---
 
@@ -323,6 +384,67 @@ function App() {
   useEffect(() => {
     const isDark = localStorage.getItem('darkMode') === 'true';
     setDarkMode(isDark);
+    
+    // Adiciona CSS global para forçar dropdowns - modo claro mantém fundo translúcido, modo escuro transparente
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Modo claro - fundo translúcido claro com letras pretas */
+      [data-radix-select-content] {
+        background: rgba(255, 255, 255, 0.95) !important;
+        color: #1f2937 !important;
+        backdrop-filter: blur(8px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+      }
+      [data-radix-select-content] * {
+        color: #1f2937 !important;
+        background: transparent !important;
+      }
+      [data-radix-select-item] {
+        color: #1f2937 !important;
+        background: transparent !important;
+      }
+      [data-radix-select-item]:hover {
+        background: rgba(0, 0, 0, 0.05) !important;
+        color: #1f2937 !important;
+      }
+      [data-radix-select-item][data-highlighted] {
+        background: rgba(0, 0, 0, 0.1) !important;
+        color: #1f2937 !important;
+      }
+      
+      /* Modo escuro - fundo transparente com letras brancas */
+      html.dark [data-radix-select-content] {
+        background: transparent !important;
+        color: #ffffff !important;
+        backdrop-filter: blur(8px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+      }
+      html.dark [data-radix-select-content] * {
+        color: #ffffff !important;
+        background: transparent !important;
+      }
+      html.dark [data-radix-select-item] {
+        color: #ffffff !important;
+        background: transparent !important;
+      }
+      html.dark [data-radix-select-item]:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #ffffff !important;
+      }
+      html.dark [data-radix-select-item][data-highlighted] {
+        background: rgba(255, 255, 255, 0.15) !important;
+        color: #ffffff !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
+    };
   }, []);
 
   useEffect(() => {

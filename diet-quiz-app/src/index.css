@@ -1092,6 +1092,121 @@ html.dark .text-teal-600 {
   color: #ffffff !important;
 }
 
+/* Estilos ULTRA específicos para dropdowns no modo escuro - Força total */
+html.dark [data-radix-select-content] {
+  background: rgba(31, 41, 55, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark [data-radix-select-content] * {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-content] span {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-content] div {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-item] {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+html.dark [data-radix-select-item]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-item][data-highlighted] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-item][data-state="checked"] {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-item-text] {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-item-indicator] {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-item-indicator] svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* Força estilos para o conteúdo do dropdown */
+.dark [data-radix-select-content] {
+  background: rgba(31, 41, 55, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.dark [data-radix-select-item] {
+  color: #ffffff !important;
+}
+
+.dark [data-radix-select-item]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.dark [data-radix-select-item][data-highlighted] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Sobrescreve TODOS os estilos do Radix UI */
+[data-radix-select-content] {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-content] {
+  background: rgba(31, 41, 55, 0.95) !important;
+  color: #ffffff !important;
+}
+
+[data-radix-select-item] {
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-item] {
+  color: #ffffff !important;
+}
+
+[data-radix-select-item]:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-item]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+[data-radix-select-item][data-highlighted] {
+  background: rgba(59, 130, 246, 0.1) !important;
+  color: #111827 !important;
+}
+
+.dark [data-radix-select-item][data-highlighted] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
 /* Força cores escuras no modo claro para todos os textos */
 :not(.dark) .text-white {
   color: #111827 !important; /* muito escuro */
@@ -1493,4 +1608,58 @@ html.dark .text-teal-600 {
   border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos ULTRA específicos para dropdowns - Força máxima */
+html.dark [data-radix-select-content],
+html.dark [data-radix-select-content] *,
+html.dark [data-radix-select-item],
+html.dark [data-radix-select-item] *,
+html.dark [data-radix-select-item-text],
+html.dark [data-radix-select-item-indicator],
+html.dark [data-radix-select-item-indicator] * {
+  color: #ffffff !important;
+}
+
+html.dark [data-radix-select-content] {
+  background: rgba(31, 41, 55, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark [data-radix-select-item] {
+  background: transparent !important;
+}
+
+html.dark [data-radix-select-item]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark [data-radix-select-item][data-highlighted] {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Força para classes específicas */
+.dark .select-content {
+  background: rgba(31, 41, 55, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark .select-item {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+.dark .select-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.dark .select-item[data-highlighted] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
 }
