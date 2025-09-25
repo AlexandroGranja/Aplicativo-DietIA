@@ -1,56 +1,123 @@
-/* SOLUÇÃO FOCADA - Apenas dropdown transparente no modo escuro */
+/* SOLUÇÃO ABRANGENTE PARA ELIMINAR BORDA BRANCA - MODO ESCURO */
 
-/* Modo claro - mantém como estava */
-[data-radix-select-content] {
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+/* 1. GARANTE QUE HTML E BODY TENHAM FUNDO ESCURO NO MODO ESCURO */
+html.dark,
+html.dark body {
+  background-color: #1a202c !important;
+  color: #ffffff !important;
 }
 
-[data-radix-select-content],
-[data-radix-select-content] *,
-[data-radix-select-item],
-[data-radix-select-item] *,
-[data-radix-select-item-text],
-[data-radix-select-item-indicator],
-[data-radix-select-item-indicator] * {
-  color: #1f2937 !important;
+/* 2. ESTILIZA O CONTAINER DO PORTAL DO RADIX UI NO MODO ESCURO */
+/* O Radix UI geralmente cria um div para o portal, que pode ter um fundo padrão */
+html.dark div[data-radix-popper-content-wrapper],
+html.dark div[data-radix-portal] {
   background-color: transparent !important;
 }
 
-/* Modo escuro - fundo transparente com letras brancas */
+/* 3. ESTILOS PARA O CONTEÚDO PRINCIPAL DO DROPDOWN (Select.Content) */
 html.dark [data-radix-select-content] {
-  background: transparent !important;
-  backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+  border: 1px solid #374151 !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7) !important;
+  overflow: hidden !important;
 }
 
-html.dark [data-radix-select-content],
-html.dark [data-radix-select-content] *,
-html.dark [data-radix-select-item],
-html.dark [data-radix-select-item] *,
-html.dark [data-radix-select-item-text],
-html.dark [data-radix-select-item-indicator],
+/* 4. FORÇA TEXTO BRANCO EM TODOS OS ELEMENTOS FILHOS DO CONTEÚDO DO DROPDOWN */
+html.dark [data-radix-select-content] * {
+  color: #ffffff !important;
+}
+
+/* 5. ESTILOS PARA OS ITENS INDIVIDUAIS DO DROPDOWN (Select.Item) */
+html.dark [data-radix-select-item] {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  border-radius: 0.5rem !important;
+  margin: 2px !important;
+}
+
+/* 6. ESTILOS DE HOVER E HIGHLIGHTED PARA OS ITENS */
+html.dark [data-radix-select-item]:hover,
+html.dark [data-radix-select-item][data-highlighted],
+html.dark [data-radix-select-item][data-state="checked"] {
+  background-color: #4b5563 !important;
+  color: #ffffff !important;
+}
+
+/* 7. ESTILOS PARA INDICADORES (SETAS, ETC.) */
+html.dark [data-radix-select-item-indicator] {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
 html.dark [data-radix-select-item-indicator] * {
   color: #ffffff !important;
-  background-color: transparent !important;
+  fill: #ffffff !important;
 }
 
-/* Hover states */
-[data-radix-select-item]:hover {
-  background: rgba(0, 0, 0, 0.05) !important;
+/* 8. ESTILOS PARA A VIEWPORT DO DROPDOWN */
+html.dark [data-radix-select-viewport] {
+  background-color: #1f2937 !important;
+  border-radius: 0.75rem !important;
 }
 
-html.dark [data-radix-select-item]:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+/* 9. ESTILOS PARA O PORTAL E SEUS WRAPPERS */
+html.dark [data-radix-portal] {
+  background: transparent !important;
 }
 
-[data-radix-select-item][data-highlighted] {
-  background: rgba(0, 0, 0, 0.1) !important;
+html.dark [data-radix-portal] > div {
+  background: #1f2937 !important;
+  background-color: #1f2937 !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden !important;
+  border: 1px solid #374151 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7) !important;
 }
 
-html.dark [data-radix-select-item][data-highlighted] {
-  background: rgba(255, 255, 255, 0.15) !important;
+/* 10. REGRAS ADICIONAIS PARA GARANTIR QUE NENHUM ELEMENTO TENHA FUNDO BRANCO */
+html.dark [data-radix-select-content],
+html.dark [data-radix-select-content] *,
+html.dark [data-radix-select-content] *:before,
+html.dark [data-radix-select-content] *:after {
+  background-color: #1f2937 !important;
+  background: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+/* 11. FORÇA ESTILOS EM TODOS OS ELEMENTOS DO RADIX UI NO MODO ESCURO */
+html.dark [data-radix-select-content],
+html.dark [data-radix-select-content] > *,
+html.dark [data-radix-select-viewport],
+html.dark [data-radix-select-viewport] > *,
+html.dark [data-radix-portal],
+html.dark [data-radix-portal] > * {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+/* 12. FORÇA ESTILOS PARA ELEMENTOS ESPECÍFICOS QUE PODEM TER FUNDO BRANCO */
+html.dark [data-radix-select-content] div,
+html.dark [data-radix-select-content] span,
+html.dark [data-radix-select-content] p {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+/* 13. REGRA UNIVERSAL PARA ELIMINAR QUALQUER FUNDO BRANCO NO DROPDOWN */
+html.dark [data-radix-select-content],
+html.dark [data-radix-select-content] *,
+html.dark [data-radix-select-content] *:before,
+html.dark [data-radix-select-content] *:after {
+  background-color: #1f2937 !important;
+  background: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+/* 14. FORÇA ESTILOS PARA O BODY DO DROPDOWN */
+html.dark [data-radix-select-content] body,
+html.dark [data-radix-select-content] html {
+  background: #1f2937 !important;
+  color: #ffffff !important;
 }

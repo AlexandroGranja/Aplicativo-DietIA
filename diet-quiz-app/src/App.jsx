@@ -306,42 +306,87 @@ const Select=SelectPrimitive.Root;const SelectValue=SelectPrimitive.Value;const 
   React.useEffect(() => {
     const applyStyles = () => {
       if (contentRef.current) {
-        // Força estilos no elemento do portal - fundo translúcido no claro, transparente no escuro
         const element = contentRef.current;
         const isDarkMode = document.documentElement.classList.contains('dark');
-        const textColor = isDarkMode ? '#ffffff' : '#1f2937';
-        const backgroundColor = isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.95)';
-        const borderColor = isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.2)';
         
-        console.log('Dropdown styling - isDarkMode:', isDarkMode, 'textColor:', textColor, 'backgroundColor:', backgroundColor);
-        
-        element.style.setProperty('background-color', backgroundColor, 'important');
-        element.style.setProperty('color', textColor, 'important');
-        element.style.setProperty('backdrop-filter', 'blur(8px)', 'important');
-        element.style.setProperty('border', `1px solid ${borderColor}`, 'important');
-        element.style.setProperty('box-shadow', '0 4px 12px rgba(0, 0, 0, 0.3)', 'important');
-        
-        // Força estilos em todos os elementos filhos
-        const allElements = element.querySelectorAll('*');
-        allElements.forEach(el => {
-          el.style.setProperty('color', textColor, 'important');
-          el.style.setProperty('background-color', 'transparent', 'important');
-        });
-        
-        // Força estilos específicos nos itens
-        const items = element.querySelectorAll('[data-radix-select-item]');
-        items.forEach(item => {
-          item.style.setProperty('color', textColor, 'important');
-          item.style.setProperty('background-color', 'transparent', 'important');
-        });
+        if (isDarkMode) {
+          // Modo escuro - SOLUÇÃO ULTRA AGRESSIVA
+          element.style.cssText = `
+            background: #1f2937 !important;
+            background-color: #1f2937 !important;
+            color: #ffffff !important;
+            border: 1px solid #374151 !important;
+            border-radius: 0.75rem !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7) !important;
+            backdrop-filter: none !important;
+            overflow: hidden !important;
+            position: relative !important;
+            z-index: 9999 !important;
+          `;
+          
+          // Força estilos em TODOS os elementos filhos
+          const allElements = element.querySelectorAll('*');
+          allElements.forEach(el => {
+            el.style.cssText = `
+              color: #ffffff !important;
+              background: #1f2937 !important;
+              background-color: #1f2937 !important;
+            `;
+          });
+          
+          // Força estilos específicos nos itens
+          const items = element.querySelectorAll('[data-radix-select-item]');
+          items.forEach(item => {
+            item.style.cssText = `
+              color: #ffffff !important;
+              background: #374151 !important;
+              background-color: #374151 !important;
+              border-radius: 0.5rem !important;
+              margin: 2px !important;
+            `;
+          });
+          
+          // Força estilos nos indicadores
+          const indicators = element.querySelectorAll('[data-radix-select-item-indicator]');
+          indicators.forEach(indicator => {
+            indicator.style.cssText = `
+              color: #ffffff !important;
+              fill: #ffffff !important;
+              background: transparent !important;
+            `;
+          });
+          
+          // Força estilos no viewport
+          const viewport = element.querySelector('[data-radix-select-viewport]');
+          if (viewport) {
+            viewport.style.cssText = `
+              background: #1f2937 !important;
+              background-color: #1f2937 !important;
+              border-radius: 0.75rem !important;
+            `;
+          }
+        } else {
+          // Modo claro - mantém original
+          element.style.setProperty('background-color', 'rgba(255, 255, 255, 0.95)', 'important');
+          element.style.setProperty('color', '#1f2937', 'important');
+          element.style.setProperty('backdrop-filter', 'blur(8px)', 'important');
+          element.style.setProperty('border', '1px solid rgba(255, 255, 255, 0.2)', 'important');
+          element.style.setProperty('box-shadow', '0 4px 12px rgba(0, 0, 0, 0.3)', 'important');
+        }
       }
     };
 
     // Aplica estilos imediatamente
     applyStyles();
     
-    // Aplica estilos novamente após um pequeno delay para garantir
-    const timeoutId = setTimeout(applyStyles, 100);
+    // Aplica estilos novamente após delays para garantir
+    const timeoutIds = [
+      setTimeout(applyStyles, 50),
+      setTimeout(applyStyles, 100),
+      setTimeout(applyStyles, 200),
+      setTimeout(applyStyles, 500),
+      setTimeout(applyStyles, 1000)
+    ];
     
     // Observer para detectar mudanças no DOM
     const observer = new MutationObserver(applyStyles);
@@ -354,12 +399,12 @@ const Select=SelectPrimitive.Root;const SelectValue=SelectPrimitive.Value;const 
     }
 
     return () => {
-      clearTimeout(timeoutId);
+      timeoutIds.forEach(id => clearTimeout(id));
       observer.disconnect();
     };
   }, []);
   
-  return (<SelectPrimitive.Portal><SelectPrimitive.Content ref={(node) => { contentRef.current = node; if (ref) ref.current = node; }}className={cn("relative z-50 min-w-[8rem] overflow-hidden rounded-xl border-2 border-white/20 bg-white/95 backdrop-blur-sm text-gray-900 dark:text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 select-content",position==="popper"&&"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",className)}position={position}{...props}><SelectPrimitive.Viewport className={cn("p-1",position==="popper"&&"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport></SelectPrimitive.Content></SelectPrimitive.Portal>);
+  return (<SelectPrimitive.Portal><SelectPrimitive.Content ref={(node) => { contentRef.current = node; if (ref) ref.current = node; }}className={cn("relative z-50 min-w-[8rem] overflow-hidden rounded-xl border-2 border-white/20 bg-white/95 dark:bg-transparent backdrop-blur-sm text-gray-900 dark:text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 select-content",position==="popper"&&"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",className)}position={position}{...props}><SelectPrimitive.Viewport className={cn("p-1",position==="popper"&&"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport></SelectPrimitive.Content></SelectPrimitive.Portal>);
 });SelectContent.displayName=SelectPrimitive.Content.displayName;const SelectItem=React.forwardRef(({className,children,...props},ref)=>(<SelectPrimitive.Item ref={ref}className={cn("relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2 text-sm font-elegant-input outline-none focus:bg-blue-100 dark:focus:bg-white/20 hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50 transition-all duration-200 select-item",className)}{...props}><span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"><SelectPrimitive.ItemIndicator><CheckIcon className="h-4 w-4"/></SelectPrimitive.ItemIndicator></span><SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText></SelectPrimitive.Item>));SelectItem.displayName=SelectPrimitive.Item.displayName;
 const RadioGroup=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Root className={cn("grid gap-2",className)}{...props}ref={ref}/>)});RadioGroup.displayName=RadioGroupPrimitive.Root.displayName;const RadioGroupItem=React.forwardRef(({className,...props},ref)=>{return(<RadioGroupPrimitive.Item ref={ref}className={cn("aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",className)}{...props}><RadioGroupPrimitive.Indicator className="flex items-center justify-center"><CircleIcon className="h-2.5 w-2.5 fill-current text-current"/></RadioGroupPrimitive.Indicator></RadioGroupPrimitive.Item>)});RadioGroupItem.displayName=RadioGroupPrimitive.Item.displayName;
 const Progress=React.forwardRef(({className,value,...props},ref)=>(<div ref={ref}className={cn("relative h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800",className)}{...props}><div className="h-full bg-gradient-to-r from-black to-gray-800 dark:from-white dark:to-gray-200 transition-all duration-500 ease-out"style={{width:`${Math.max(value||0, 0)}%`}}/></div>));Progress.displayName="Progress";const Separator=React.forwardRef(({className,orientation='horizontal',decorative=true,...props},ref)=>(<SeparatorPrimitive.Root ref={ref}decorative={decorative}orientation={orientation}className={cn('shrink-0 bg-border',orientation==='horizontal'?'h-[1px] w-full':'h-full w-[1px]',className)}{...props}/>));Separator.displayName=SeparatorPrimitive.Root.displayName;
@@ -385,71 +430,203 @@ function App() {
     const isDark = localStorage.getItem('darkMode') === 'true';
     setDarkMode(isDark);
     
-    // Adiciona CSS global para forçar dropdowns - modo claro mantém fundo translúcido, modo escuro transparente
-    const style = document.createElement('style');
-    style.textContent = `
-      /* Modo claro - fundo translúcido claro com letras pretas */
-      [data-radix-select-content] {
-        background: rgba(255, 255, 255, 0.95) !important;
-        color: #1f2937 !important;
-        backdrop-filter: blur(8px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    // Função para forçar estilos apenas no portal do dropdown
+    const forcePortalStyles = (portal, isDarkMode) => {
+      if (isDarkMode) {
+        // Força estilos apenas no portal (transparente)
+        portal.style.setProperty('background', 'transparent', 'important');
+        portal.style.setProperty('background-color', 'transparent', 'important');
+        
+        // Força estilos apenas no wrapper do portal
+        const wrapper = portal.querySelector('div');
+        if (wrapper) {
+          wrapper.style.setProperty('background', 'rgba(31, 41, 55, 0.98)', 'important');
+          wrapper.style.setProperty('background-color', 'rgba(31, 41, 55, 0.98)', 'important');
+          wrapper.style.setProperty('border-radius', '0.75rem', 'important');
+          wrapper.style.setProperty('overflow', 'hidden', 'important');
+          wrapper.style.setProperty('border', '1px solid rgba(55, 65, 81, 0.6)', 'important');
+          wrapper.style.setProperty('box-shadow', '0 10px 25px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(75, 85, 99, 0.3)', 'important');
+        }
       }
-      [data-radix-select-content] * {
-        color: #1f2937 !important;
-        background: transparent !important;
+    };
+
+    // Função para aplicar estilos do dropdown - SOLUÇÃO ULTRA AGRESSIVA
+    const applyDropdownStyles = (element, isDarkMode) => {
+      if (isDarkMode) {
+        // Força estilos no dropdown principal
+        element.style.cssText = `
+          background: #1f2937 !important;
+          background-color: #1f2937 !important;
+          color: #ffffff !important;
+          border: 1px solid #374151 !important;
+          border-radius: 0.75rem !important;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7) !important;
+          backdrop-filter: none !important;
+          overflow: hidden !important;
+          position: relative !important;
+          z-index: 9999 !important;
+        `;
+        
+        // Força estilos em todos os elementos filhos
+        const allElements = element.querySelectorAll('*');
+        allElements.forEach(el => {
+          el.style.cssText = `
+            color: #ffffff !important;
+            background: #1f2937 !important;
+            background-color: #1f2937 !important;
+          `;
+        });
+        
+        // Força estilos específicos nos itens
+        const items = element.querySelectorAll('[data-radix-select-item]');
+        items.forEach(item => {
+          item.style.cssText = `
+            color: #ffffff !important;
+            background: #374151 !important;
+            background-color: #374151 !important;
+            border-radius: 0.5rem !important;
+            margin: 2px !important;
+          `;
+        });
+        
+        // Força estilos no viewport
+        const viewport = element.querySelector('[data-radix-select-viewport]');
+        if (viewport) {
+          viewport.style.cssText = `
+            background: #1f2937 !important;
+            background-color: #1f2937 !important;
+            border-radius: 0.75rem !important;
+          `;
+        }
+      } else {
+        element.style.setProperty('background-color', 'rgba(255, 255, 255, 0.95)', 'important');
+        element.style.setProperty('color', '#1f2937', 'important');
+        element.style.setProperty('backdrop-filter', 'blur(8px)', 'important');
+        element.style.setProperty('border', '1px solid rgba(255, 255, 255, 0.2)', 'important');
+        element.style.setProperty('box-shadow', '0 4px 12px rgba(0, 0, 0, 0.3)', 'important');
       }
-      [data-radix-select-item] {
-        color: #1f2937 !important;
-        background: transparent !important;
-      }
-      [data-radix-select-item]:hover {
-        background: rgba(0, 0, 0, 0.05) !important;
-        color: #1f2937 !important;
-      }
-      [data-radix-select-item][data-highlighted] {
-        background: rgba(0, 0, 0, 0.1) !important;
-        color: #1f2937 !important;
-      }
-      
-      /* Modo escuro - fundo transparente com letras brancas */
-      html.dark [data-radix-select-content] {
-        background: transparent !important;
-        color: #ffffff !important;
-        backdrop-filter: blur(8px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-      }
-      html.dark [data-radix-select-content] * {
-        color: #ffffff !important;
-        background: transparent !important;
-      }
-      html.dark [data-radix-select-item] {
-        color: #ffffff !important;
-        background: transparent !important;
-      }
-      html.dark [data-radix-select-item]:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
-        color: #ffffff !important;
-      }
-      html.dark [data-radix-select-item][data-highlighted] {
-        background: rgba(255, 255, 255, 0.15) !important;
-        color: #ffffff !important;
-      }
-    `;
-    document.head.appendChild(style);
+    };
+    
+    // Observer global para detectar dropdowns adicionados ao DOM
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            // Verifica se é um dropdown ou contém dropdowns
+            const dropdowns = node.matches && node.matches('[data-radix-select-content]') 
+              ? [node] 
+              : node.querySelectorAll ? node.querySelectorAll('[data-radix-select-content]') : [];
+            
+            dropdowns.forEach(dropdown => {
+              applyDropdownStyles(dropdown, isDark);
+            });
+            
+            // Força estilos no portal e elementos pais
+            const portals = node.matches && node.matches('[data-radix-portal]') 
+              ? [node] 
+              : node.querySelectorAll ? node.querySelectorAll('[data-radix-portal]') : [];
+            
+            portals.forEach(portal => {
+              forcePortalStyles(portal, isDark);
+            });
+          }
+        });
+      });
+    });
+    
+    // Observa mudanças no body
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+    
+    // Aplica estilos nos dropdowns existentes
+    const existingDropdowns = document.querySelectorAll('[data-radix-select-content]');
+    existingDropdowns.forEach(dropdown => {
+      applyDropdownStyles(dropdown, isDark);
+    });
     
     return () => {
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
+      observer.disconnect();
     };
   }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
     localStorage.setItem('darkMode', darkMode);
+    
+    // Aplica estilos do dropdown quando o modo escuro muda - SOLUÇÃO ULTRA AGRESSIVA
+    const applyDropdownStyles = (element, isDarkMode) => {
+      if (isDarkMode) {
+        // Força estilos no dropdown principal
+        element.style.cssText = `
+          background: #1f2937 !important;
+          background-color: #1f2937 !important;
+          color: #ffffff !important;
+          border: 1px solid #374151 !important;
+          border-radius: 0.75rem !important;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7) !important;
+          backdrop-filter: none !important;
+          overflow: hidden !important;
+          position: relative !important;
+          z-index: 9999 !important;
+        `;
+        
+        // Força estilos em todos os elementos filhos
+        const allElements = element.querySelectorAll('*');
+        allElements.forEach(el => {
+          el.style.cssText = `
+            color: #ffffff !important;
+            background: #1f2937 !important;
+            background-color: #1f2937 !important;
+          `;
+        });
+        
+        // Força estilos específicos nos itens
+        const items = element.querySelectorAll('[data-radix-select-item]');
+        items.forEach(item => {
+          item.style.cssText = `
+            color: #ffffff !important;
+            background: #374151 !important;
+            background-color: #374151 !important;
+            border-radius: 0.5rem !important;
+            margin: 2px !important;
+          `;
+        });
+        
+        // Força estilos no viewport
+        const viewport = element.querySelector('[data-radix-select-viewport]');
+        if (viewport) {
+          viewport.style.cssText = `
+            background: #1f2937 !important;
+            background-color: #1f2937 !important;
+            border-radius: 0.75rem !important;
+          `;
+        }
+      } else {
+        element.style.setProperty('background-color', 'rgba(255, 255, 255, 0.95)', 'important');
+        element.style.setProperty('color', '#1f2937', 'important');
+        element.style.setProperty('backdrop-filter', 'blur(8px)', 'important');
+        element.style.setProperty('border', '1px solid rgba(255, 255, 255, 0.2)', 'important');
+        element.style.setProperty('box-shadow', '0 4px 12px rgba(0, 0, 0, 0.3)', 'important');
+      }
+    };
+    
+    const forceDropdownStyles = () => {
+      const dropdowns = document.querySelectorAll('[data-radix-select-content]');
+      dropdowns.forEach(dropdown => {
+        applyDropdownStyles(dropdown, darkMode);
+      });
+      
+      // Força estilos nos portais existentes
+      const portals = document.querySelectorAll('[data-radix-portal]');
+      portals.forEach(portal => {
+        forcePortalStyles(portal, darkMode);
+      });
+    };
+    
+    // Aplica estilos após um pequeno delay para garantir que o DOM foi atualizado
+    setTimeout(forceDropdownStyles, 100);
   }, [darkMode]);
 
   // Verificar se usuário está logado
