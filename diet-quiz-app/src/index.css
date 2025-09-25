@@ -840,6 +840,22 @@ html.dark [data-radix-select-content] [data-radix-select-item-text] {
   color: #ffffff !important;
 }
 
+/* FIM DO ARQUIVO: Regra derradeira para dropdown no modo escuro */
+html.dark body [data-radix-select-content],
+html.dark [data-radix-select-content][class] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* FORÇA FINAL: dropdown transparente no modo escuro (sobrepõe qualquer regra anterior) */
+html.dark [data-radix-select-content] {
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+}
+
 /* Regras mais específicas para o dropdown do Radix UI */
 [data-radix-select-content] {
   background: rgba(255, 255, 255, 0.95) !important;
@@ -1165,6 +1181,20 @@ html.dark [data-radix-select-item-indicator] svg {
 
 .dark [data-radix-select-item][data-highlighted] {
   background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* ÚLTIMA CAMADA - GARANTIA ABSOLUTA (mantenha no final do arquivo) */
+:where(html.dark) [data-radix-select-content] {
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.45) !important;
+}
+:where(html.dark) [data-radix-select-content] * {
+  background: transparent !important;
+  background-color: transparent !important;
   color: #ffffff !important;
 }
 
@@ -1622,7 +1652,7 @@ html.dark [data-radix-select-item-indicator] * {
 }
 
 html.dark [data-radix-select-content] {
-  background: rgba(31, 41, 55, 0.95) !important;
+  background: transparent !important;
   backdrop-filter: blur(12px) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
@@ -1642,7 +1672,7 @@ html.dark [data-radix-select-item][data-highlighted] {
 
 /* Força para classes específicas */
 .dark .select-content {
-  background: rgba(31, 41, 55, 0.95) !important;
+  background: transparent !important;
   backdrop-filter: blur(12px) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   color: #ffffff !important;
